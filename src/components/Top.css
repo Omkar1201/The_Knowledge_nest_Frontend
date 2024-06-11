@@ -1,0 +1,11 @@
+ @media(max-width: 376px){
+    .imgw{
+        min-width: 20rem;
+    }
+}
+@media(max-width: 906px) {
+    .applyflexwrap{
+        flex-wrap: wrap;
+    }
+    
+}

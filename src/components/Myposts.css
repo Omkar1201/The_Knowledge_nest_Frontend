@@ -1,0 +1,72 @@
+.comments-container {
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+.comments-container.hidden {
+    height: 0;
+}
+
+.comments-container.visible {
+    height: auto;
+}
+
+.custom-modal {
+    position: fixed;
+    /* Changed from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    height: 10rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+#change-heigh20 {
+    height: 30rem;
+}
+@media (max-width: 530px) { 
+    .deleteicon{
+        display: block;
+    }
+    .hidedelteicon{
+        display: none;
+    }
+    .imgw{
+        width: 40rem;
+    }
+    .custom-modal{
+        width: 24rem;
+        height: 10rem;
+    }
+
+}
+@media (max-width: 400px) {
+    .custom-modal{
+        width: 21rem;
+    }
+}

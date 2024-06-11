@@ -1,0 +1,18 @@
+.line {
+	position: absolute;
+	left: 50%;
+	/* Start the line from the middle */
+	top: 50%;
+	/* Align the line vertically in the middle */
+	height: 2px;
+	/* Height of the line */
+	background-color: black;
+	/* Color of the line */
+	transform: scaleX(0);
+	/* Initially set the line width to 0 */
+	transform-origin: left center;
+	/* Set the origin to the left */
+	transition: transform 1s;
+	/* Apply a transition effect */
+}
+

@@ -1,0 +1,13 @@
+/* Overlay style to avoid decreasing opacity of the rest of the page */
+.custom-overlay {
+    position: absolute;
+    background-color: transparent; /* No background color */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure the modal is above other elements */
+  }
+  
+  /* Custom modal content style */
+  
+  
