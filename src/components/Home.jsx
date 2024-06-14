@@ -3,7 +3,6 @@ import { AppContext } from '../context/Appcontext'
 import Card from './Card'
 import Loading from './Loading'
 import Top from './Top'
-import Footer from './Footer';
 
 export default function Home() {
 	const { isloading, TempAllposts } = useContext(AppContext)

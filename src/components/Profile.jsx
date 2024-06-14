@@ -5,7 +5,6 @@ import Modal from 'react-modal';
 import { IoWarningOutline } from "react-icons/io5";
 import Myposts from './Myposts';
 import Loading from './Loading';
-import Footer from './Footer';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { FaFacebook, FaTwitter, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import logo from '../images/logo.png'
+import { FaTwitter, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from "react-icons/si";
 import { AppContext } from '../context/Appcontext';
 
@@ -25,7 +24,7 @@ export default function Footer() {
                                 recentpost.map((data, index) => (
                                     <div key={index}>
                                         <li className="mb-2">
-                                            <a href="#" className="text-gray-400 hover:text-white">{index+1}. {data.title}</a>
+                                            <button className="text-gray-400 hover:text-white">{index+1}. {data.title}</button>
                                         </li>
                                     </div>
                                 ))
@@ -39,19 +38,19 @@ export default function Footer() {
                         <p className="text-gray-400 flex justify-center flex-wrap mb-2">Email: <a href="mailto:omkarsalunkhe3597@gmail.com" className="text-gray-400 hover:text-white hover:underline">omkarsalunkhe3597@gmail.com</a></p>
                         <p className="text-gray-400 mb-2">Phone: <a href="tel:+919975359761" className="text-gray-400 hover:text-white">+91 9975359761</a></p>
                         <div className="flex space-x-4 flex-wrap gap-2 mt-4 justify-center">
-                            <a href='https://leetcode.com/omkarsalunkhe3597/' target='_blank' className="text-gray-400 hover:text-white">
+                            <a href='https://leetcode.com/omkarsalunkhe3597/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <SiLeetcode size={24} />
                             </a>
-                            <a href='https://github.com/Omkar1201' target='_blank' className="text-gray-400 hover:text-white">
+                            <a href='https://github.com/Omkar1201' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaGithub size={24} />
                             </a>
-                            <a href='https://www.linkedin.com/in/omkar-salunkhe-28784b214/' target='_blank' className="text-gray-400 hover:text-white">
+                            <a href='https://www.linkedin.com/in/omkar-salunkhe-28784b214/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaLinkedin size={24} />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-white">
+                            <a href="https://x.com/?lang=en" target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaTwitter size={24} />
                             </a>
-                            <a href='https://www.instagram.com/omkar_salunkhe12/' target='_blank' className="text-gray-400 hover:text-white">
+                            <a href='https://www.instagram.com/omkar_salunkhe12/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaInstagram size={24} />
                             </a>
                         </div>

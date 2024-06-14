@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaPhoneAlt, FaRegUser, FaLinkedin } from "react-icons/fa";
+import { FaPhoneAlt, FaRegUser} from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaGithub, FaInstagram } from "react-icons/fa6";
 import { AiOutlineLinkedin } from "react-icons/ai";

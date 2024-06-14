@@ -30,7 +30,7 @@ export default function AppContextProvider({ children }) {
 
 		else {
 			setisloading(true)
-			const data = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/`, {
+			const data = await fetch(`http://localhost:3000/api/v1/`, {
 				method: "GET",
 				headers: {
 					'Content-Type': "application/json",
@@ -62,7 +62,7 @@ export default function AppContextProvider({ children }) {
 		setisloading(true)
 		try {
 
-			const data = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/home`, {
+			const data = await fetch(`http://localhost:3000/api/v1/home`, {
 				method: "GET",
 				headers: {
 					'Content-Type': "application/json",
@@ -97,7 +97,7 @@ export default function AppContextProvider({ children }) {
 	useEffect(() => {
 		authenticate()
 		getposts()
-	}, [])
+	},[])
 	// console.log(Allposts);
 	function logout() {
 		localStorage.removeItem('token');

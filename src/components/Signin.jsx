@@ -15,7 +15,7 @@ export default function Signin() {
 		event.preventDefault();
 		setbtnloading(true)
 		try {
-			const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/signin`, {
+			const response = await fetch(`http://localhost:3000/api/v1/signin`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

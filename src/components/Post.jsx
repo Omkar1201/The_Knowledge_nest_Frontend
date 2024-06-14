@@ -4,7 +4,6 @@ import PleaseLogin from './PleaseLogin';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import Loading2 from './Loading2';
-import Footer from './Footer';
 
 export default function Post() {
     const navigate = useNavigate();
@@ -12,12 +11,7 @@ export default function Post() {
     const [formdata, setformdata] = useState({ title: "", body: "", category: "" });
     const [image, setImage] = useState(null);
     const [btnloading, setbtnloading] = useState(false);
-    const [currdate, setcurrdate] = useState(new Date().toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }));
+    
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -39,7 +33,13 @@ export default function Post() {
                 toast.warn('Please Login');
                 return;
             }
-            const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/createpost`, {
+            const currdate= new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            const response = await fetch(`http://localhost:3000/api/v1/createpost`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

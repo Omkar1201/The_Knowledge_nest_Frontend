@@ -7,7 +7,7 @@ export default function Category() {
     const { catogry, Allposts } = useContext(AppContext)
     const [categoryposts, setcategoryposts] = useState()
     useEffect(() => {
-        const filterposts = Allposts.filter((data) => (data.category == catogry))
+        const filterposts = Allposts.filter((data) => (data.category === catogry))
         setcategoryposts(filterposts)
     }, [catogry])
     // console.log(categoryposts);

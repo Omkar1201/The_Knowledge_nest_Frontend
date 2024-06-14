@@ -49,7 +49,7 @@ export default function Card({ data, flag }) {
         // isLiked ? setLikeCount(data.likes.length-1):setLikeCount(data.likes.length+1)
         setisliking(true)
         try {
-            const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/${isLiked ? 'unlike' : 'like'}`, {
+            const response = await fetch(`http://localhost:3000/api/v1/${isLiked ? 'unlike' : 'like'}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function Card({ data, flag }) {
         }
         setisCommentLoading(true)
         try {
-            const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/createcomment`, {
+            const response = await fetch(`http://localhost:3000/api/v1/createcomment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export default function Card({ data, flag }) {
         const token = localStorage.getItem('token')
         setiscommentdeleting(true)
         try {
-            const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/deletecomment`, {
+            const response = await fetch(`http://localhost:3000/api/v1/deletecomment`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export default function Card({ data, flag }) {
         }
         setisSaving(true)
         try {
-            const response = await fetch(`https://the-knowledge-nest-server.onrender.com/api/v1/savedpost`, {
+            const response = await fetch(`http://localhost:3000/api/v1/savedpost`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
