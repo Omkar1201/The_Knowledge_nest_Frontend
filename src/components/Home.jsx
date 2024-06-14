@@ -9,7 +9,7 @@ export default function Home() {
 	// const gettest = async () => {
 	// 	try {
 	// 		const token = localStorage.getItem('token')
-	// 		const data = await fetch('http://localhost:3000/api/v1/test', {
+	// 		const data = await fetch('${process.env.REACT_APP_BASE_URL}/api/v1/test', {
 	// 			method: "GET",
 	// 			headers: {
 	// 				'Content-Type': "application/json",
@@ -32,7 +32,7 @@ export default function Home() {
 	// 		return;
 	// 	}
 	// 	setisloading(true)
-	// 	const data = await fetch('http://localhost:3000/api/v1/category', {
+	// 	const data = await fetch('${process.env.REACT_APP_BASE_URL}/api/v1/category', {
 	// 		method: "POST",
 	// 		headers: {
 	// 			'Content-Type': "application/json",

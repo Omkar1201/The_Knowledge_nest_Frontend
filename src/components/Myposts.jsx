@@ -74,7 +74,7 @@ export default function Myposts({ data }) {
         });
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/editpost`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/editpost`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ export default function Myposts({ data }) {
         }
         setbtnloading(true)
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/deletepost`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/deletepost`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export default function Myposts({ data }) {
         }
         setisCommentDeleting(true);
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/deletecomment`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/deletecomment`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

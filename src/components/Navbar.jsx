@@ -42,7 +42,7 @@ function Navbar() {
         const token = localStorage.getItem('token')
         try {
 
-            const data = await fetch(`http://localhost:3000/api/v1/createpost`, {
+            const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/createpost`, {
                 method: "GET",
                 headers: {
                     'Content-Type': "application/json",

@@ -39,7 +39,7 @@ export default function Post() {
                 month: 'long',
                 day: 'numeric'
             });
-            const response = await fetch(`http://localhost:3000/api/v1/createpost`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/createpost`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ export default function Post() {
 //                 toast.warn('Please Login')
 //                 return;
 //             }
-//             const response = await fetch('http://localhost:3000/api/v1/createpost', {
+//             const response = await fetch('${process.env.REACT_APP_BASE_URL}/api/v1/createpost', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
