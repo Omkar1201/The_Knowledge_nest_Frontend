@@ -20,10 +20,20 @@ export default function Myposts({ data }) {
     const bodyRef = useRef(null);
     useEffect(() => {
         recalculateHeights();
+        // eslint-disable-next-line       
     }, []);
 
     useEffect(() => {
-        recalculateHeights();
+        const recalculateHeights0 = () => {
+            if (titleRef.current) {
+                updateTextareaHeight(titleRef.current);
+            }
+    
+            if (bodyRef.current) {
+                updateTextareaHeight(bodyRef.current);
+            }
+        };
+        recalculateHeights0();
     }, [iseditclicked]);
 
     const handleChangeBody = (event) => {

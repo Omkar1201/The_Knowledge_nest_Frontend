@@ -95,10 +95,79 @@ export default function AppContextProvider({ children }) {
 	}
 
 	useEffect(() => {
-		authenticate()
-		getposts()
+		const authenticate0 = async () => {
+			const token=localStorage.getItem('token')
+			setisloading(true)
+			if (!token || token === 'null') {
+				console.log({ success: false, message: 'Token not found' })
+				setisloggedin(false)
+			}
+	
+			else {
+				setisloading(true)
+				const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/`, {
+					method: "GET",
+					headers: {
+						'Content-Type': "application/json",
+						'Authorization': `Bearer ${token}`
+					},
+				})
+				const responsedata = await data.json()
+				if (responsedata.success) {
+					setisloggedin(true)
+				}
+				else {
+					logout0()
+				}
+			}
+		}
+		const getposts0 = async () => {
+			setisloading(true)
+			try {
+	
+				const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/home`, {
+					method: "GET",
+					headers: {
+						'Content-Type': "application/json",
+					},
+				})
+				let response = await data.json();
+	
+				if (response.success) {
+					setTempAllposts(response.Allpost)
+					setAllposts(response.Allpost)
+				}
+				else {
+					if (response.message==='connect ETIMEDOUT 13.127.238.52:27017' || response.message==='Operation `posts.find()` buffering timed out after 10000ms') {
+	
+						toast.warn('Check your internet connection')
+						return
+					}
+					toast.warn(response.message)
+				}
+			}
+			catch (error) {
+				if (error instanceof TypeError && error.message === 'Failed to fetch') {
+					toast.error("Check your internet connection.");
+				} else {
+					toast.error("An error occurred while sending the message.");
+				}
+			}
+			setisloading(false)
+		}
+		function logout0() {
+			localStorage.removeItem('token');
+			localStorage.removeItem('email');
+			localStorage.removeItem('username');
+			localStorage.removeItem('user_id');
+			setisloggedin(false);
+			getposts();
+		}
+	
+		authenticate0()
+		getposts0()
 	},[])
-	// console.log(Allposts);
+	
 	function logout() {
 		localStorage.removeItem('token');
 		localStorage.removeItem('email');

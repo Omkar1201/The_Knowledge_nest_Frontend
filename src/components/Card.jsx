@@ -35,8 +35,8 @@ export default function Card({ data, flag }) {
         filterdata.includes(userId) ? setIsLiked(true) : setIsLiked(false)
         flag === 'only' ? setcomment(data.comments.slice(-1).reverse()) : setcomment(data.comments)
         setisSaved(data.savedby.includes(userId));
-        setcommentlength(data.comments.length)       
-    }, [data]);
+        setcommentlength(data.comments.length) 
+    }, [data,flag]);
     // console.log(data);
     async function handleLike() {
         const token = localStorage.getItem('token');
@@ -204,7 +204,7 @@ export default function Card({ data, flag }) {
     // console.log(writtenby);
     // console.log(comment);
     return (
-        <div className={`${flag === 'only' ? 'w-[24rem] border-2 rounded-xl border-gray-200' : ''} ${iscommentdeleting || isSaving ? 'opacity-30' : ''}`}>
+        <div className={`${flag === 'only' ? 'w-[24rem] border-2 rounded-xl border-gray-200' : ''} ${iscommentdeleting || isSaving ? 'opacity-30 cursor-wait' : ''}`}>
             <div className={` flex flex-wrap ${flag==='only'? 'justify-center':''} items-center`}><img src={data.image} alt='preview' className={`w-[24rem] imgw h-[14rem] p-[0.1rem] ${flag==='only' ? 'rounded-t-xl':''}`} /></div>
             <div className='px-2'>
                 <div className='my-2 flex justify-between items-start'>
