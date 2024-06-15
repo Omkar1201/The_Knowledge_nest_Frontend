@@ -45,8 +45,8 @@ export default function Card({ data, flag }) {
             return;
         }
         if (isliking) return;
-        // setIsLiked(!isLiked);
-        // isLiked ? setLikeCount(data.likes.length-1):setLikeCount(data.likes.length+1)
+        setIsLiked(!isLiked);
+        isLiked ? setLikeCount(data.likes.length-1):setLikeCount(data.likes.length+1)
         setisliking(true)
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/${isLiked ? 'unlike' : 'like'}`, {
@@ -61,7 +61,7 @@ export default function Card({ data, flag }) {
             const responseData = await response.json();
             // console.log(responseData);
             if (responseData.success) {
-                setIsLiked(!isLiked);
+                // setIsLiked(!isLiked);
                 replacepost(responseData.updateresponse)
                 if (selectedarticle) {
                     setselectedarticle(responseData.updateresponse)
