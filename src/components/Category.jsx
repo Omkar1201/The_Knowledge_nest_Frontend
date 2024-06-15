@@ -9,7 +9,7 @@ export default function Category() {
     useEffect(() => {
         const filterposts = Allposts.filter((data) => (data.category === catogry))
         setcategoryposts(filterposts)
-    }, [catogry])
+    }, [catogry,Allposts])
     // console.log(categoryposts);
     return (
         <div>

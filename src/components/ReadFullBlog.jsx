@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../context/Appcontext'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Card from './Card';
 export default function ReadFullBlog() {
   const { selectedarticle } = useContext(AppContext)
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!selectedarticle) {
-      navigate('/Home')
-    }
-  }, [])
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!selectedarticle) {
+  //     navigate('/Home')
+  //   }
+  // }, [])
   return (
     <div>
       {

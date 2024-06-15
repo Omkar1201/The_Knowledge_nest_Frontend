@@ -7,7 +7,7 @@ export default function Otherposts() {
     const [otherpost,setotherpost]=useState(Allposts.filter((data)=>data.creater_id === writtenby.id))
     useEffect(() => {
         setotherpost(Allposts.filter((data)=>data.creater_id === writtenby.id))
-    }, [Allposts])
+    }, [Allposts,writtenby.id])
     return (
         <div className=' min-h-screen'>
             <div className='text-[1.2rem] text-start my-4 font-bold'>Other Posts of {writtenby.name}</div>
