@@ -44,7 +44,7 @@ export default function Sidebar({ createpost }) {
                     }
                     <div className=' my-8 flex flex-col gap-4 font-semibold text-start'>
                         <Link to='/Home' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/Home' ? 'bg-zinc-100' : ''}`}>
+                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/Home' ? 'bg-zinc-100' : ''}`}>
                                 <div className='text-[1.2rem]'>
                                     <GoHome />
                                 </div>
@@ -54,7 +54,7 @@ export default function Sidebar({ createpost }) {
                             </div>
                         </Link>
                         <Link to='/createpost' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/createpost' ? 'bg-zinc-100' : ''}`} onClick={() => createpost()}>
+                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/createpost' ? 'bg-zinc-100' : ''}`} onClick={() => createpost()}>
                                 <div className='text-[1.2rem]'>
                                     <IoMdCreate />
                                 </div>
@@ -64,7 +64,7 @@ export default function Sidebar({ createpost }) {
                             </div>
                         </Link>
                         <Link to='/profile' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/profile' ? 'bg-zinc-100' : ''}`}>
+                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/profile' ? 'bg-zinc-100' : ''}`}>
                                 <div className='text-[1.2rem]'>
                                     <CgProfile />
                                 </div>
@@ -83,7 +83,7 @@ export default function Sidebar({ createpost }) {
 
                         {
                             isloggedin ? (
-                                <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className={`border w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
+                                <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className={` w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
                                     <div className='text-[1.2rem]'>
                                         <GoSignOut />
                                     </div>
@@ -94,7 +94,7 @@ export default function Sidebar({ createpost }) {
                             ) :
                                 (
                                     <Link to='/Signin' onClick={handleSidebarClick}>
-                                        <button className={`border w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
+                                        <button className={` w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
                                             <div>
                                                 <CiLogin />
                                             </div>

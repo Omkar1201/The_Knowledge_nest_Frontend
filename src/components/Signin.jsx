@@ -31,10 +31,7 @@ export default function Signin() {
 				localStorage.setItem('token', responsedata.token)
 				localStorage.setItem('user_id', responsedata.user_id)
 				localStorage.setItem('username', responsedata.username)
-				toast.success(responsedata.message, {
-					position: 'top-center',
-					style: { position: 'absolute', left: '6rem' },
-				})
+				toast.success(responsedata.message)
 				navigate('/Home')
 			}
 			else {

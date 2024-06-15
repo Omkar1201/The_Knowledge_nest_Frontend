@@ -27,7 +27,7 @@ function App() {
         <Route path='/About' element={<About />}></Route>
         <Route path='/Contact' element={<Contact />}></Route>
         <Route path='/Signup' element={<Signup />}></Route>
-        <Route path='/profile' element={<Profile />}></Route>
+        <Route path='/profile/myblogs' element={<Profile />}></Route>
         <Route path='/createpost' element={<Post />}></Route>
         <Route path='/readblog' element={<ReadFullBlog />}></Route>
         <Route path='/category' element={<Category />}></Route>

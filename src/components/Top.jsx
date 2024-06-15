@@ -7,7 +7,7 @@ export default function Top() {
     const navigate = useNavigate()
     const sortedItems = [...Allposts].sort((a, b) => b.likes.length - a.likes.length);
     return (
-        <div className=' min-h-screen'>
+        <div className=''>
             <div className='text-start text-[1.5rem] font-serif font-bold'>
                 Top picks
             </div>
@@ -18,9 +18,9 @@ export default function Top() {
                         {
                             <div className='flex applyflexwrap my-4 px-2'>
                                 <div className=' flex justify-center flex-wrap items-center'><img src={data.image} alt='preview' className='min-w-[24rem] imgw h-[14rem] p-[0.1rem]' /></div>
-                                <div className=' flex flex-col'>
+                                <div className=' flex flex-col justify-between'>
                                     <div className='text-start text-[1.1rem] font-bold'>Title: {data.title}</div>
-                                    <div className='text-start'>{data.body.slice(0, 400)} <span className='mx-1 cursor-pointer' onClick={() => { setselectedarticle(data); navigate('/readblog') }}>{(data.body.length > 400) ? '...' : ('')}</span></div>
+                                    <div className='text-start'>{data.body.slice(0, 280)} <span className='mx-1 cursor-pointer' onClick={() => { setselectedarticle(data); navigate('/readblog') }}>{(data.body.length > 280) ? '...' : ('')}</span></div>
                                     <div className='my-2 flex justify-between items-end'>
                                         <div className=''>
                                             <div className='text-start text-[0.9rem] font-bold'>Category: {data.category}</div>
@@ -34,7 +34,7 @@ export default function Top() {
                                         <div className='font-semibold text-end text-[0.9rem]'>Written by: {data.username}</div>
                                     </div>
 
-                                    < div className='flex py-2'>
+                                    < div className='flex py-2 '>
                                         <button onClick={() => { setselectedarticle(data); navigate('/readblog') }} className='border active:bg-slate-700 px-4 border-black font-semibold bg-black text-white py-1'>Read More</button>
                                     </div>
 

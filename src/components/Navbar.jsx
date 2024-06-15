@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../context/Appcontext'
 import { CgProfile } from "react-icons/cg";
@@ -8,11 +8,20 @@ import { toast } from 'react-toastify'
 import { BsSearch } from "react-icons/bs"
 import logo from "../images/logo.png"
 import flagimg from '../images/flag.jpg'
+import Modal from 'react-modal';
+import { GoSignOut } from "react-icons/go";
+import { TiUserDelete } from "react-icons/ti";
+import { PiUserThin } from "react-icons/pi";
+import { IoWarningOutline } from "react-icons/io5";
+
 import './Navbar.css'
 import Sidebar from './Sidebar';
 function Navbar() {
     const cur = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     const { logout, setTempAllposts, isloggedin, category, setcategory, Allposts } = useContext(AppContext)
+    const [profileModal, setprofileModal] = useState(false)
+    const [signoutModalIsOpen, setSignoutModalIsOpen] = useState(false);
+
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -70,7 +79,7 @@ function Navbar() {
 
             <div className='flex sidebar-container justify-center items-center gap-4 relative'>
                 <div className='hidden sidebar'>
-                    <Sidebar createpost={createpost}/>
+                    <Sidebar createpost={createpost} />
                 </div>
 
                 <div className='text-[2rem] items-center gap-4 fontsize flex text-center font-bold'>
@@ -89,22 +98,22 @@ function Navbar() {
             <div className=' mobile-navbar flex-wrap hidden justify-around my-4 font-semibold'>
 
                 <Link to='/Home'>
-                    <button className={`${location.pathname === '/Home' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/Home' ? 'bg-black text-white' : 'bg-zinc-100 text-black'} px-3  py-1 w-full`}>
                         Home
                     </button>
                 </Link>
                 <Link to='/savedposts'>
-                    <button className={`${location.pathname === '/savedposts' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/savedposts' ? 'bg-black text-white' : 'bg-zinc-100 text-black'} px-3  py-1 w-full`}>
                         Saved posts
                     </button>
                 </Link>
                 <Link to='/About'>
-                    <button className={`${location.pathname === '/About' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/About' ? 'bg-black text-white' : 'bg-zinc-100 text-black'} px-3  py-1 w-full`}>
                         About
                     </button>
                 </Link>
                 <Link to='/Contact'>
-                    <button className={`${location.pathname === '/Contact' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/Contact' ? 'bg-black text-white' : 'bg-zinc-100 text-black'} px-3  py-1 w-full`}>
                         Contact
                     </button>
                 </Link>
@@ -167,17 +176,57 @@ function Navbar() {
                     <button onClick={() => { createpost() }} className='border px-4 py-1 bg-black hover:bg-slate-800 text-white font-semibold rounded-md' >
                         Create Post
                     </button>
+                    <Modal
+                        isOpen={profileModal}
+                        onRequestClose={() => setprofileModal(false)}
+                        contentLabel="Profile Modal"
+                        className='custom-profile-modal'
+                        shouldCloseOnOverlayClick={true}
+                        overlayClassName='ReactModal__Overlay'
+                    >
+                        <div className=' flex flex-col gap-5 items-start'>
+                            <Link to='/profile/myblogs' className='w-full'>
+                                <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                                    <div>
+                                        <PiUserThin />
+                                    </div>
+                                    <div>
+                                        Myblogs
+                                    </div>
+                                </button>
+                            </Link>
+                            <button onClick={() => setSignoutModalIsOpen(true)} className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                                <div>
+                                    <GoSignOut />
+                                </div>
+                                <div>
+                                    Sign Out
+                                </div>
+                            </button>
+                            <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-red-500 rounded-md hover:text-white`}>
+                                <div className='text-[1.2rem]'>
+                                    <TiUserDelete />
+                                </div>
+                                <div>
+                                    Delete Account
+                                </div>
+                            </button>
+                        </div>
+                    </Modal>
                     {
                         isloggedin ? (
-                            <Link to='/profile'>
-                                <div className={`text-[2rem] hover:bg-gray-200 ${location.pathname === '/profile' ? ' text-blue-500' : ''}`} title='Profile'>
-                                    <CgProfile />
-                                </div>
-                                <div className='text-[0.7rem] font-thin'>
-                                    {
-                                        localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
-                                    }
-                                </div>
+                            <Link to='/profile/myblogs'>
+                                <button>
+
+                                    <div className={`text-[2rem] hover:bg-gray-200 ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
+                                        <CgProfile />
+                                    </div>
+                                    <div className='text-[0.7rem] font-thin'>
+                                        {
+                                            localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
+                                        }
+                                    </div>
+                                </button>
                             </Link>
                         ) :
                             (
@@ -189,6 +238,21 @@ function Navbar() {
                                 </Link>
                             )
                     }
+                    <Modal
+                        isOpen={signoutModalIsOpen}
+                        onRequestClose={() => setSignoutModalIsOpen(false)}
+                        contentLabel="Sign Out Confirmation"
+                        className='custom-modal'
+                    >
+                        <h2 className=' text-[1.2rem] font-semibold flex items-center gap-4'><span className='text-[1.7rem] text-yellow-600 flex justify-center items-center rounded-full p-1 bg-yellow-100'><IoWarningOutline /></span>Are you sure you want to sign out?</h2>
+                        <div className='flex gap-4'>
+                            <button onClick={() => {
+                                logout();
+                                setSignoutModalIsOpen(false);
+                            }} className='border px-3 rounded-md border-gray-300 font-semibold py-1 hover:bg-gray-100'>Sign Out</button>
+                            <button onClick={() => setSignoutModalIsOpen(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
+                        </div>
+                    </Modal>
                 </div>
             </div>
         </div>
