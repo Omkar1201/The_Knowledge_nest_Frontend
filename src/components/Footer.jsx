@@ -6,7 +6,7 @@ import { AppContext } from '../context/Appcontext';
 export default function Footer() {
     const { recentpost } = useContext(AppContext)
     return (
-        <footer className="bg-black text-white py-10 mt-4">
+        <footer className="bg-black text-white py-10 ">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap justify-between">
 

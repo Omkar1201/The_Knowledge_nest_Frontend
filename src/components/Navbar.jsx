@@ -89,22 +89,22 @@ function Navbar() {
             <div className=' mobile-navbar flex-wrap hidden justify-around my-4 font-semibold'>
 
                 <Link to='/Home'>
-                    <button className={`${location.pathname === '/Home' ? 'bg-black text-white' : 'bg-zinc-300 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/Home' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
                         Home
                     </button>
                 </Link>
                 <Link to='/savedposts'>
-                    <button className={`${location.pathname === '/savedposts' ? 'bg-black text-white' : 'bg-zinc-300 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/savedposts' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
                         Saved posts
                     </button>
                 </Link>
                 <Link to='/About'>
-                    <button className={`${location.pathname === '/About' ? 'bg-black text-white' : 'bg-zinc-300 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/About' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
                         About
                     </button>
                 </Link>
                 <Link to='/Contact'>
-                    <button className={`${location.pathname === '/Contact' ? 'bg-black text-white' : 'bg-zinc-300 text-black'} px-3  py-1 w-full`}>
+                    <button className={`${location.pathname === '/Contact' ? 'bg-black text-white' : 'bg-zinc-200 text-black'} px-3  py-1 w-full`}>
                         Contact
                     </button>
                 </Link>
@@ -117,7 +117,7 @@ function Navbar() {
                     </Link>
                 }
             </div>
-            <form action="" onSubmit={handleclickmobile} className=' serach-bar px-4 hidden py-3 bg-gray-100 '>
+            <form action="" onSubmit={handleclickmobile} className=' serach-bar px-4 hidden py-3 bg-gray-100 ' id='search_mobile'>
                 <div className='border inputbar border-gray-500 bg-white shadow-xl flex h-12'>
                     <input type='text' value={category} onChange={(e) => setcategory(e.target.value)} placeholder='Search...' className=' w-full bg-transparent outline-none px-2' />
                     <button className=' p-4 bg-black text-white flex items-center justify-center '>
@@ -156,7 +156,7 @@ function Navbar() {
                     </ul>
                 </div>
                 <div className='flex justify-center flex-wrap last-container items-center gap-10'>
-                    <form action="" onSubmit={handleclick}>
+                    <form action="" onSubmit={handleclick} id='search'>
                         <div className='border flex-wrap border-grey-600 shadow-xl flex items-center cursor-pointer rounded-lg'>
                             <input type='text' value={category} onChange={(e) => setcategory(e.target.value)} placeholder='Search...' className=' bg-transparent outline-none px-1' />
                             <button className='ml-1 p-2 bg-black active:bg-slate-700 text-white rounded-r-lg '>

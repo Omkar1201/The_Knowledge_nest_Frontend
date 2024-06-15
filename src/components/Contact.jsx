@@ -44,7 +44,7 @@ export default function Contact() {
 		<div className=' bg-black py-4 flex-wrap items-center justify-center'>
 			<div className='text-center text-[2rem] font-serif text-white'>Get in touch</div>
 			<div className='flex flex-wrap twodivs justify-center'>
-				<form className={`bg-gray-100 left-10 w-[32rem] p-4 border-black `} ref={form} onSubmit={sendEmail} >
+				<form className={`bg-gray-100 left-10 w-[32rem] p-4 border-black `} ref={form} onSubmit={sendEmail} id='contactform'>
 					<div className='flex flex-wrap '>
 						<label className='w-full'>
 							<div className='text-start'>

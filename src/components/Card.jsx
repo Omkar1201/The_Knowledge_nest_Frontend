@@ -3,7 +3,7 @@ import { BiLike, BiSolidLike } from "react-icons/bi";
 import { AppContext } from '../context/Appcontext';
 import { toast } from 'react-toastify';
 import { MdDeleteOutline } from "react-icons/md";
-import { useNavigate,useLocation } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 import { useRef } from 'react';
 import Loading2 from './Loading2';
 // import Modal from 'react-modal';
@@ -11,7 +11,7 @@ import Loading2 from './Loading2';
 import { BsFillBookmarkCheckFill } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 export default function Card({ data, flag }) {
-    const {logout, replacepost, setselectedarticle, selectedarticle,setwrittenby } = useContext(AppContext);
+    const { logout, replacepost, setselectedarticle, selectedarticle, setwrittenby } = useContext(AppContext);
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(data.likes.length);
     const [mycomment, setmycomment] = useState("")
@@ -21,12 +21,12 @@ export default function Card({ data, flag }) {
     const [isCommentLoading, setisCommentLoading] = useState(false)
     const [iscommentdeleting, setiscommentdeleting] = useState(false)
     const [isliking, setisliking] = useState(false)
-    const [isSaving,setisSaving]=useState(false)
+    const [isSaving, setisSaving] = useState(false)
     // const [ThreedotModalIsOpen, setThreedotModalIsOpen] = useState(false)
-    const [isSaved,setisSaved]=useState(false);
+    const [isSaved, setisSaved] = useState(false);
 
     const navigate = useNavigate()
-    const location=useLocation()
+    const location = useLocation()
     const formRef = useRef(null);
 
     useEffect(() => {
@@ -35,8 +35,8 @@ export default function Card({ data, flag }) {
         filterdata.includes(userId) ? setIsLiked(true) : setIsLiked(false)
         flag === 'only' ? setcomment(data.comments.slice(-1).reverse()) : setcomment(data.comments)
         setisSaved(data.savedby.includes(userId));
-        setcommentlength(data.comments.length) 
-    }, [data,flag]);
+        setcommentlength(data.comments.length)
+    }, [data, flag]);
     // console.log(data);
     async function handleLike() {
         const token = localStorage.getItem('token');
@@ -46,7 +46,7 @@ export default function Card({ data, flag }) {
         }
         if (isliking) return;
         setIsLiked(!isLiked);
-        isLiked ? setLikeCount(data.likes.length-1):setLikeCount(data.likes.length+1)
+        isLiked ? setLikeCount(data.likes.length - 1) : setLikeCount(data.likes.length + 1)
         setisliking(true)
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/${isLiked ? 'unlike' : 'like'}`, {
@@ -138,6 +138,7 @@ export default function Card({ data, flag }) {
                 }
                 replacepost(responseData.updatedPostData)
                 setcomment(responseData.updatedPostData.comments)
+                
                 toast.success('Comment deleted')
                 // console.log(responseData.updatedPostData);
             }
@@ -168,7 +169,7 @@ export default function Card({ data, flag }) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ post_id: data._id,user_id:localStorage.getItem('user_id') ,saved: !isSaved })
+                body: JSON.stringify({ post_id: data._id, user_id: localStorage.getItem('user_id'), saved: !isSaved })
             });
             const responseData = await response.json()
             // console.log(responseData);
@@ -201,11 +202,12 @@ export default function Card({ data, flag }) {
         }
         setisfocused(false);
     };
+
     // console.log(writtenby);
     // console.log(comment);
     return (
-        <div className={`${flag === 'only' ? 'w-[24rem] border-2 rounded-xl border-gray-200' : ''} ${iscommentdeleting || isSaving ? 'opacity-30 cursor-wait' : ''}`}>
-            <div className={` flex flex-wrap ${flag==='only'? 'justify-center':''} items-center`}><img src={data.image} alt='preview' className={`w-[24rem] imgw h-[14rem] p-[0.1rem] ${flag==='only' ? 'rounded-t-xl':''}`} /></div>
+        <div className={`${flag === 'only' ? 'w-[24rem] border-2 rounded-xl border-gray-200' : ''} ${iscommentdeleting || isSaving ? 'opacity-40 cursor-wait' : ''}`}>
+            <div className={` flex flex-wrap ${flag === 'only' ? 'justify-center' : ''} items-center`}><img src={data.image} alt='preview' className={`w-[24rem] imgw h-[14rem] p-[0.1rem] ${flag === 'only' ? 'rounded-t-xl' : ''}`} /></div>
             <div className='px-2'>
                 <div className='my-2 flex justify-between items-start'>
                     <div>
@@ -218,7 +220,7 @@ export default function Card({ data, flag }) {
                         }).replace(/,/g, '')}
                         </div>
                     </div>
-                    <button disabled={isSaving} onClick={() => { handleSavepost() }} className=' hover:bg-zinc-200 p-2 rounded-full' title={`${isSaved ? 'Click to remove from Bookmark':'Click to Bookmark'}`}>
+                    <button disabled={isSaving || isCommentLoading || iscommentdeleting} onClick={() => { handleSavepost() }} className={` hover:bg-zinc-200 p-2 rounded-full ${isSaving || isCommentLoading || iscommentdeleting ? 'cursor-wait' : ''}`} title={`${isSaved ? 'Click to remove from Bookmark' : 'Click to Bookmark'}`}>
                         {
 
                             isSaved ? <BsFillBookmarkCheckFill /> : <BsBookmark />
@@ -229,16 +231,16 @@ export default function Card({ data, flag }) {
                 <div className='text-start text-[1.1rem] font-bold'>Title: {data.title}</div>
                 <div className='text-start'>{flag === 'only' ? data.body.slice(0, 400) : data.body} <span className='mx-1 cursor-pointer' onClick={() => { setselectedarticle(data); navigate('/readblog') }}>{flag === 'only' ? (data.body.length > 400 ? '...' : '') : ('')}</span></div>
                 <div className='flex flex-wrap pt-4 justify-between'>
-                    <div onClick={handleLike} className='flex flex-wrap items-center justify-center gap-2 cursor-pointer' title={`${isLiked ? 'Click to Unlike':'Click to like'}`}>
+                    <button onClick={handleLike} className={`flex flex-wrap items-center justify-center gap-2 cursor-pointer ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} title={`${isLiked ? 'Click to Unlike' : 'Click to like'}`} disabled={isCommentLoading || iscommentdeleting || isSaving}>
                         {isLiked ? <BiSolidLike /> : <BiLike />}
                         <div>{likeCount}</div>
-                    </div>
-                    <button className='font-semibold text-[0.9rem]' onClick={()=>{setwrittenby({id:data.creater_id,name:data.username});navigate('/otherposts')}} disabled={location.pathname==='/otherposts'}>Written by: {data.username}</button>
+                    </button>
+                    <button className={`font-semibold text-[0.9rem] ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} onClick={() => { setwrittenby({ id: data.creater_id, name: data.username }); navigate('/otherposts') }} disabled={location.pathname === '/otherposts'}>Written by: {data.username}</button>
                 </div>
                 {
                     flag === 'only' &&
                     < div className='flex flex-wrap py-2'>
-                        <button onClick={() => { setselectedarticle(data); navigate('/readblog') }} className='border active:bg-slate-700 px-4 border-black font-semibold bg-black text-white py-1' title='Click to read entire blog' disabled={isSaving}>Read More</button>
+                        <button onClick={() => { setselectedarticle(data); navigate('/readblog') }} className={`border active:bg-slate-700 px-4  border-black font-semibold bg-black text-white py-1 ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} title='Click to read entire blog' disabled={isSaving}>Read More</button>
                     </div>
                 }
                 <div>
@@ -247,15 +249,15 @@ export default function Card({ data, flag }) {
                         {commentlength} Comments
                     </div>
 
-                    <form ref={formRef} onSubmit={submitcomment} onFocus={() => setisfocused(true)} onBlur={handleBlur}>
+                    <form ref={formRef} onSubmit={submitcomment} onFocus={() => setisfocused(true)} onBlur={handleBlur} id='commentform'>
                         <div className='py-2'>
-                            <input onChange={(event) => setmycomment(event.target.value)} autoComplete='off' value={mycomment || ''} className='border-b w-full focus:border-black outline-none' name='comment' placeholder='Add a Comment...' type='text' disabled={isCommentLoading || iscommentdeleting || isSaving} />
+                            <input onChange={(event) => setmycomment(event.target.value)} autoComplete='off' value={mycomment || ''} className={`border-b w-full focus:border-black outline-none ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} name='comment' placeholder='Add a Comment...' type='text' disabled={isCommentLoading || iscommentdeleting || isSaving} />
                         </div>
                         <div className={`justify-end flex-wrap gap-4 ${isfocused ? 'flex ' : 'hidden'}`}>
-                            <div className='hover:bg-gray-200 px-3 rounded-xl font-semibold py-1 cursor-pointer' onClick={() => { setmycomment(""); }} >cancel</div>
+                            <div className='hover:bg-gray-200 px-3 rounded-lg font-semibold py-1 cursor-pointer' onClick={() => { setmycomment(""); }} >cancel</div>
                             {/* <button className={`${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}  border px-3 rounded-xl font-semibold py-1`} disabled={!mycomment}>Comment</button> */}
                             <div className='relative'>
-                                <button className={`border ${isCommentLoading ? 'opacity-30' : ''} ${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'} border px-3 rounded-xl font-semibold py-1`} disabled={!mycomment || isCommentLoading}>
+                                <button className={`border ${isCommentLoading ? 'opacity-30' : ''} ${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'} border px-3 rounded-lg font-semibold py-1`} disabled={!mycomment || isCommentLoading}>
                                     Comment
                                 </button>
                                 {

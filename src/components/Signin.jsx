@@ -8,7 +8,7 @@ import Loading2 from './Loading2';
 export default function Signin() {
 	const [eye, seteye] = useState(true)
 	const [user, setuser] = useState({ username: "", password: "" })
-	const {  setisloggedin, getposts } = useContext(AppContext)
+	const { setisloggedin, getposts } = useContext(AppContext)
 	const [btnloading, setbtnloading] = useState(false)
 	const navigate = useNavigate();
 	async function handlesubmit(event) {
@@ -31,7 +31,10 @@ export default function Signin() {
 				localStorage.setItem('token', responsedata.token)
 				localStorage.setItem('user_id', responsedata.user_id)
 				localStorage.setItem('username', responsedata.username)
-				toast.success(responsedata.message)
+				toast.success(responsedata.message, {
+					position: 'top-center',
+					style: { position: 'absolute', left: '6rem' },
+				})
 				navigate('/Home')
 			}
 			else {
@@ -56,7 +59,7 @@ export default function Signin() {
 
 			<div className='border-2 flex flex-col items-center duration-[0.5s] transition-all shadow-2xl gap-5 my-[5rem] py-[4.2rem] px-[3rem] rounded-lg'>
 				<h2 className='text-xl font-bold'>LOGIN</h2>
-				<form onSubmit={handlesubmit} className=' flex flex-col items-center gap-5 rounded-lg'>
+				<form onSubmit={handlesubmit} className=' flex flex-col items-center gap-5 rounded-lg' id='signinform'>
 
 					<div className='border flex items-center w-fit px-2 py-1 rounded-lg '>
 						<input type='email' disabled={btnloading} required onChange={handleform} name='email' placeholder='Email' className='  outline-none w-[14rem]' />

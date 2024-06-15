@@ -65,7 +65,7 @@ export default function Profile() {
                             <button onClick={() => setSignoutModalIsOpen(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
                         </div>
                     </Modal>
-                    <button onClick={() => setSignoutModalIsOpen(true)} className=' border px-4 py-1 bg-blue-500 text-white hover:bg-blue-600 font-semibold rounded-md'>
+                    <button onClick={() => setSignoutModalIsOpen(true)} className=' border px-4 py-1 my-4 bg-blue-500 text-white hover:bg-blue-600 font-semibold rounded-md'>
                         Sign Out
                     </button>
                 </div>

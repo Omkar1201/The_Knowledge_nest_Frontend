@@ -1,0 +1,7 @@
+@media(max-width: 906px) {
+    .Toastify__toast{
+        width: 20rem;
+        margin: auto;
+    }
+
+}

@@ -23,7 +23,7 @@ export default function SavedPosts() {
 
     return (
         <div className='mt-4 min-h-screen'>
-            <div className='text-[1.4rem] my-2   font-serif font-bold text-start'>
+            <div className='text-[1.5rem] my-2   font-serif font-bold text-start'>
                 Saved posts
             </div>
             {

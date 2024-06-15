@@ -45,7 +45,7 @@ export default function Signin() {
 
             <div className='border  flex flex-col items-center duration-[0.5s] transition-all shadow-2xl gap-5 my-[4rem] py-[4.2rem] px-[3rem] rounded-lg'>
                 <h2 className='text-xl font-bold'>SIGNUP</h2>
-                <form onSubmit={handlesubmit} className=' flex flex-col items-center gap-5 rounded-lg'>
+                <form onSubmit={handlesubmit} className=' flex flex-col items-center gap-5 rounded-lg' id='signupform'>
 
                     <div className='border flex items-center w-fit px-2 py-1 rounded-xl '>
                         <input type='text' required onChange={handleform} name='username' placeholder='Username' className='  outline-none w-[14rem]' />

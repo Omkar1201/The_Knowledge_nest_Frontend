@@ -28,7 +28,7 @@ export default function Myposts({ data }) {
             if (titleRef.current) {
                 updateTextareaHeight(titleRef.current);
             }
-    
+
             if (bodyRef.current) {
                 updateTextareaHeight(bodyRef.current);
             }
@@ -243,7 +243,7 @@ export default function Myposts({ data }) {
                         <textarea
                             id="title-textarea"
                             ref={titleRef}
-                            className='w-full px-2 outline-none focus:bg-gray-200 rounded-lg'
+                            className='w-full px-2 outline-none focus:bg-gray-100 rounded-lg'
                             value={formdata.posttitle}
                             onChange={handleChangeTitle}
                             disabled={!iseditclicked || btnloading}
@@ -255,7 +255,7 @@ export default function Myposts({ data }) {
                     <textarea
                         id="body-textarea"
                         ref={bodyRef}
-                        className='w-full p-2 rounded-lg outline-none focus:bg-gray-200'
+                        className='w-full p-[0.1rem] rounded-lg outline-none focus:bg-gray-100'
                         value={formdata.postbody}
                         onChange={handleChangeBody}
                         disabled={!iseditclicked || btnloading}
@@ -285,9 +285,11 @@ export default function Myposts({ data }) {
                     <div className='font-semibold'>
                         Your post is saved by: {data.savedby.length}
                     </div>
-                    <div className='font-semibold flex items-center'  >
-                        Total Comments: {data.comments.length}
-                        <div className='text-[2rem] cursor-pointer' onClick={() => setiscommentclicked(!iscommentclicked)} title='Click to see comments'>
+                    <div onClick={() => setiscommentclicked(!iscommentclicked)} className='font-semibold cursor-pointer flex items-center'  >
+                        <div>
+                            Total Comments: {data.comments.length}
+                        </div>
+                        <div className='text-[2rem] ' title='Click to see comments'>
                             {iscommentclicked ? <RiArrowDropUpLine /> : <RiArrowDropDownLine />}
                         </div>
                     </div>
@@ -333,7 +335,7 @@ export default function Myposts({ data }) {
                     ) : (
                         <div className='flex justify-evenly w-full'>
                             <div className='relative'>
-                                <button onClick={saveChanges} className={`border ${btnloading ? 'opacity-30' : ''} font-semibold px-5 py-1 rounded-md bg-slate-100 border-black hover:bg-gray-200`} disabled={btnloading} title='Click to save changes'>
+                                <button onClick={saveChanges} className={` ${btnloading ? 'opacity-30' : ''} font-semibold px-5 py-1 rounded-md bg-gray-200 border-black hover:bg-zinc-300`} disabled={btnloading} title='Click to save changes'>
                                     Save changes
                                 </button>
                                 {
@@ -346,7 +348,7 @@ export default function Myposts({ data }) {
                             {/* <button onClick={saveChanges} className='border font-semibold px-5 py-1 rounded-md bg-slate-100 border-black hover:bg-gray-200'>
                                 Save changes
                             </button> */}
-                            <button disabled={btnloading} onClick={handleCancel} className={`border ${btnloading ? 'opacity-30' : ''} font-semibold px-5 py-1 rounded-md bg-slate-100 border-black hover:bg-gray-200`}>
+                            <button disabled={btnloading} onClick={handleCancel} className={` ${btnloading ? 'opacity-30' : ''} font-semibold px-5 py-1 rounded-md bg-gray-200 border-black hover:bg-zinc-300`}>
                                 Cancel
                             </button>
 

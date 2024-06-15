@@ -87,7 +87,7 @@ export default function Post() {
             {
                 isloggedin ? (
                     <div className='flex flex-col justify-center mx-auto px-1 border-black w-full max-w-2xl my-1'>
-                        <form onSubmit={handlesubmit}>
+                        <form onSubmit={handlesubmit} id='createpost'>
                             <div className='flex justify-center'>
                                 {image && <img src={image} alt="Preview" className='w-full max-w-md h-auto' />}
                             </div>

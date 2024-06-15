@@ -5,8 +5,11 @@ import { CgProfile } from "react-icons/cg";
 import { IoWarningOutline } from "react-icons/io5";
 import Modal from 'react-modal';
 import { GoSignOut } from "react-icons/go";
+import { IoMdCreate } from "react-icons/io";
+import { GoHome } from "react-icons/go";
+import { CiLogin } from "react-icons/ci";
 import './Sidebar.css'
-export default function Sidebar({createpost}) {
+export default function Sidebar({ createpost }) {
     const { isloggedin, logout } = useContext(AppContext)
     const [isSidebarClicked, setIsSidebarClicked] = useState(false);
     const [expanded, setExpanded] = useState(false);
@@ -27,61 +30,81 @@ export default function Sidebar({createpost}) {
 
     return (
         <div>
-            <div className={`animated-div z-10 ${expanded ? 'expanded' : ''} top-[4.3rem] left-0 absolute h-screen border bg-white overflow-auto`}>
+            <div className={`animated-div z-10 ${expanded ? 'expanded' : ''} top-[5rem] left-0 absolute h-screen border bg-white overflow-auto`}>
                 <div className="py-4 px-3">
                     {
                         !isloggedin &&
-                        <div className='border flex justify-around'>
+                        <div className=''>
                             <Link to='/Signup' onClick={handleSidebarClick}>
-                                <button className='border px-4 py-1 bg-black text-white font-semibold'>
+                                <button className='border w-full px-4 py-1 bg-black text-white font-semibold'>
                                     Register
-                                </button>
-                            </Link>
-                            <Link to='/Signin' onClick={handleSidebarClick}>
-                                <button className='border px-4 py-1 bg-zinc-300 active:bg-black active:text-white font-semibold'>
-                                    Log in
                                 </button>
                             </Link>
                         </div>
                     }
-                    <div className=' my-8 flex flex-col gap-4 font-semibold text-[1.5rem] text-start'>
+                    <div className=' my-8 flex flex-col gap-4 font-semibold text-start'>
                         <Link to='/Home' onClick={handleSidebarClick}>
-                            <div className=''>
-                                <div className={`${location.pathname === '/Home' ? 'w-2' : 'hidden'} absolute h-[2.25rem] left-0 border bg-black`}></div>
-                                <div className='border-b w-full'>
+                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/Home' ? 'bg-zinc-100' : ''}`}>
+                                <div className='text-[1.2rem]'>
+                                    <GoHome />
+                                </div>
+                                <div className=''>
                                     Home
                                 </div>
                             </div>
                         </Link>
                         <Link to='/createpost' onClick={handleSidebarClick}>
-                            <div className=''>
-                                <div className={`${location.pathname === '/createpost' ? 'w-2' : 'hidden'} absolute h-[2.25rem] left-0 border bg-black`}></div>
-                                <div className='border-b w-full' onClick={()=>createpost()}>
+                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/createpost' ? 'bg-zinc-100' : ''}`} onClick={() => createpost()}>
+                                <div className='text-[1.2rem]'>
+                                    <IoMdCreate />
+                                </div>
+                                <div>
                                     Create post
                                 </div>
                             </div>
                         </Link>
                         <Link to='/profile' onClick={handleSidebarClick}>
-                            <div className=''>
-                                <div className={`${location.pathname === '/profile' ? 'w-2 font-bold' : 'hidden'} absolute h-[2rem] left-0 border bg-black`}></div>
-                                <div className='flex items-center gap-2 border-b w-full'>
-                                    <div className='text-[2rem]'>
-                                        <CgProfile />
-                                    </div>
-                                    <div >
-                                        {
-                                            isloggedin ?
-                                                localStorage.getItem('username')
-                                                :
-                                                <div>
-                                                    Profile
-                                                </div>
-                                        }
-                                    </div>
-
+                            <div className={`flex items-center gap-4 border px-4 py-1  ${location.pathname === '/profile' ? 'bg-zinc-100' : ''}`}>
+                                <div className='text-[1.2rem]'>
+                                    <CgProfile />
+                                </div>
+                                <div >
+                                    {
+                                        isloggedin ?
+                                            localStorage.getItem('username')
+                                            :
+                                            <div>
+                                                Profile
+                                            </div>
+                                    }
                                 </div>
                             </div>
                         </Link>
+
+                        {
+                            isloggedin ? (
+                                <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className={`border w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
+                                    <div className='text-[1.2rem]'>
+                                        <GoSignOut />
+                                    </div>
+                                    <div>
+                                        Sign Out
+                                    </div>
+                                </button>
+                            ) :
+                                (
+                                    <Link to='/Signin' onClick={handleSidebarClick}>
+                                        <button className={`border w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
+                                            <div>
+                                                <CiLogin />
+                                            </div>
+                                            <div>
+                                                Log in
+                                            </div>
+                                        </button>
+                                    </Link>
+                                )
+                        }
                         <Modal
                             isOpen={signoutModalIsOpen}
                             onRequestClose={() => setSignoutModalIsOpen(false)}
@@ -97,14 +120,6 @@ export default function Sidebar({createpost}) {
                                 <button onClick={() => setSignoutModalIsOpen(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
                             </div>
                         </Modal>
-                        <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className=' border-b flex items-center gap-2 font-semibold text-start rounded-md'>
-                            <div>
-                                <GoSignOut />
-                            </div>
-                            <div>
-                                Sign Out
-                            </div>
-                        </button>
 
                     </div>
 
@@ -129,9 +144,9 @@ export default function Sidebar({createpost}) {
                     </div>
                 ) : (
                     <>
-                        <div className='w-[1.7rem] border-2 border-black'></div>
-                        <div className='w-[1.7rem] border-2 border-black'></div>
-                        <div className='w-[1.7rem] border-2 border-black'></div>
+                        <div className='w-[1.5rem] border border-black'></div>
+                        <div className='w-[1.5rem] border border-black'></div>
+                        <div className='w-[1.5rem] border border-black'></div>
                     </>
                 )}
             </div>
