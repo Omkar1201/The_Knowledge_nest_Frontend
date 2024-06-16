@@ -16,6 +16,11 @@ import { IoWarningOutline } from "react-icons/io5";
 
 import './Navbar.css'
 import Sidebar from './Sidebar';
+const customStyles = {
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+};
 function Navbar() {
     const cur = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     const { logout, setTempAllposts, isloggedin, category, setcategory, Allposts } = useContext(AppContext)
@@ -76,7 +81,6 @@ function Navbar() {
     }
     return (
         <div className=''>
-
             <div className='flex sidebar-container justify-center items-center gap-4 relative'>
                 <div className='hidden sidebar'>
                     <Sidebar createpost={createpost} />
@@ -176,17 +180,43 @@ function Navbar() {
                     <button onClick={() => { createpost() }} className='border px-4 py-1 bg-black hover:bg-slate-800 text-white font-semibold rounded-md' >
                         Create Post
                     </button>
+
+                    {
+                        isloggedin ? (
+                            <Link to='/profile/myblogs'>
+                                <button>
+                                    <div className={`text-[2rem] hover:bg-gray-200 ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
+                                        <CgProfile />
+                                    </div>
+                                    <div className='text-[0.7rem] font-thin'>
+                                        {
+                                            localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
+                                        }
+                                    </div>
+                                </button>
+                            </Link>
+                        ) :
+                            (
+
+                                <Link to='/Signin'>
+                                    <button className=' hover:bg-black hover:text-white border px-4 py-1 bg-zinc-200 text-black font-semibold rounded-md'>
+                                        Log in
+                                    </button>
+                                </Link>
+                            )
+                    }
+                    {/* <div onClick={()=>setprofileModal(!profileModal)}>Click</div> */}
+                     {/* Profile Modal */}
                     <Modal
                         isOpen={profileModal}
                         onRequestClose={() => setprofileModal(false)}
-                        contentLabel="Profile Modal"
-                        className='custom-profile-modal'
-                        shouldCloseOnOverlayClick={true}
-                        overlayClassName='ReactModal__Overlay'
+                        contentLabel="Profile_Modal"
+                        className="custom-profile-modal"
+                        style={customStyles}
                     >
-                        <div className=' flex flex-col gap-5 items-start'>
-                            <Link to='/profile/myblogs' className='w-full'>
-                                <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                        <div className={`flex flex-col gap-5 items-start`}>
+                            <Link to='/profile/myblogs' className='w-full' onClick={()=>setprofileModal(false)}>
+                                <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 ${location.pathname==='/profile/myblogs' ? 'bg-gray-100 hover:bg-gray-200':''} rounded-md`}>
                                     <div>
                                         <PiUserThin />
                                     </div>
@@ -213,31 +243,8 @@ function Navbar() {
                             </button>
                         </div>
                     </Modal>
-                    {
-                        isloggedin ? (
-                            <Link to='/profile/myblogs'>
-                                <button>
 
-                                    <div className={`text-[2rem] hover:bg-gray-200 ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
-                                        <CgProfile />
-                                    </div>
-                                    <div className='text-[0.7rem] font-thin'>
-                                        {
-                                            localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
-                                        }
-                                    </div>
-                                </button>
-                            </Link>
-                        ) :
-                            (
-
-                                <Link to='/Signin'>
-                                    <button className=' hover:bg-black hover:text-white border px-4 py-1 bg-zinc-200 text-black font-semibold rounded-md'>
-                                        Log in
-                                    </button>
-                                </Link>
-                            )
-                    }
+                    {/* Sign out Modal */}
                     <Modal
                         isOpen={signoutModalIsOpen}
                         onRequestClose={() => setSignoutModalIsOpen(false)}
@@ -249,6 +256,7 @@ function Navbar() {
                             <button onClick={() => {
                                 logout();
                                 setSignoutModalIsOpen(false);
+                                setprofileModal(false)
                             }} className='border px-3 rounded-md border-gray-300 font-semibold py-1 hover:bg-gray-100'>Sign Out</button>
                             <button onClick={() => setSignoutModalIsOpen(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
                         </div>

@@ -69,15 +69,15 @@
 }
 .custom-profile-modal{
     box-shadow: 0 0.1rem 0.5rem gray;
-    position: absolute;
+    position:absolute;
     border-radius: 0.5rem;
     right: 1rem;
-    top: 7.12rem;
+    top: 7.15rem;
     background-color: white;
     width: 12rem;    
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.5rem;   
 }
-.ReactModal__Overlay{
+/* .ReactModal__Overlay{
     background-color:transparent;
-} 
+}   */
 /* App.css */

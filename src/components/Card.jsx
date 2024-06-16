@@ -254,7 +254,7 @@ export default function Card({ data, flag }) {
                             <input onChange={(event) => setmycomment(event.target.value)} autoComplete='off' value={mycomment || ''} className={`border-b w-full focus:border-black outline-none ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} name='comment' placeholder='Add a Comment...' type='text' disabled={isCommentLoading || iscommentdeleting || isSaving} />
                         </div>
                         <div className={`justify-end flex-wrap gap-4 ${isfocused ? 'flex ' : 'hidden'}`}>
-                            <div className='hover:bg-gray-200 px-3 rounded-lg font-semibold py-1 cursor-pointer' onClick={() => { setmycomment(""); }} >cancel</div>
+                            <div className='hover:bg-gray-200 px-3 rounded-lg font-semibold py-1 cursor-pointer' onClick={() => { setmycomment("");setisfocused(false) }} >cancel</div>
                             {/* <button className={`${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}  border px-3 rounded-xl font-semibold py-1`} disabled={!mycomment}>Comment</button> */}
                             <div className='relative'>
                                 <button className={`border ${isCommentLoading ? 'opacity-30' : ''} ${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'} border px-3 rounded-lg font-semibold py-1`} disabled={!mycomment || isCommentLoading}>

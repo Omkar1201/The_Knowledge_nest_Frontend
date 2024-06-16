@@ -15,6 +15,7 @@ import Pagenotfound from './components/Pagenotfound';
 import Savedposts from './components/Savedposts';
 import Footer from './components/Footer';
 import Otherposts from './components/Otherposts';
+import Demo from './components/Demo';
 function App() {
   const location = useLocation()
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/category' element={<Category />}></Route>
         <Route path='/savedposts' element={<Savedposts />}></Route>
         <Route path='/otherposts' element={<Otherposts/>}></Route>
+        <Route path='/demo' element={<Demo/>}></Route>
         <Route path='/*' element={<Pagenotfound />}></Route>
       </Routes>
 
