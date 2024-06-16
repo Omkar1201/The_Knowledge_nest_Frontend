@@ -47,7 +47,7 @@ export default function Footer() {
                             <a href='https://www.linkedin.com/in/omkar-salunkhe-28784b214/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaLinkedin size={24} />
                             </a>
-                            <a href="https://x.com/?lang=en" target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
+                            <a href="https://x.com/Omkar11239862" target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <FaTwitter size={24} />
                             </a>
                             <a href='https://www.instagram.com/omkar_salunkhe12/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
