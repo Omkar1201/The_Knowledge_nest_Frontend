@@ -63,8 +63,8 @@ export default function Sidebar({ createpost }) {
                                 </div>
                             </div>
                         </Link>
-                        <Link to='/profile' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/profile' ? 'bg-zinc-100' : ''}`}>
+                        <Link to='/profile/myblogs' onClick={handleSidebarClick}>
+                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/profile/myblogs' ? 'bg-zinc-100' : ''}`}>
                                 <div className='text-[1.2rem]'>
                                     <CgProfile />
                                 </div>
@@ -95,7 +95,7 @@ export default function Sidebar({ createpost }) {
                                 (
                                     <Link to='/Signin' onClick={handleSidebarClick}>
                                         <button className={` w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
-                                            <div>
+                                            <div className='text-[1.2rem]'>
                                                 <CiLogin />
                                             </div>
                                             <div>

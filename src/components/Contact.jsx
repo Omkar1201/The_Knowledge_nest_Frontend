@@ -10,6 +10,7 @@ import Loading2 from './Loading2';
 import './Contact.css'
 export default function Contact() {
 	const [btnloading, setbtnloading] = useState(false)
+	const [showmessage,setshowmessage]=useState(false);
 	const form = useRef();
 	const sendEmail = async (e) => {
 		e.preventDefault();
@@ -34,7 +35,11 @@ export default function Contact() {
 	const handleIconClick = () => {
 		navigator.clipboard.writeText(phoneNumber)
 		  .then(() => {
-			toast.success('Phone number copied to clipboard')
+			// toast.success('Phone number copied to clipboard')
+			setshowmessage(true)
+			setTimeout(()=>{
+				setshowmessage(false)
+			},2000)
 		  })
 		  .catch(err => {
 			toast.error('Failed to copy phone number: ');
@@ -113,7 +118,7 @@ export default function Contact() {
 							</div>
 						</span>
 					</div>
-					<div className='flex gap-5 items-start my-4 cursor-pointer' title='Click to copy mobile no.' onClick={handleIconClick}>
+					<div className='flex relative gap-5 items-start my-4 cursor-pointer' title='Click to copy mobile no.' onClick={handleIconClick}>
 						<span className='bg-black p-2 text-white border rounded-full'>
 							<FaPhoneAlt />
 						</span>
@@ -125,6 +130,7 @@ export default function Contact() {
 								9975359761
 							</div>
 						</span>
+						<div className={`bg-black shadow-2xl text-white px-2 absolute py-1 top-[0.6rem] rounded-md left-[10rem] ${showmessage?'block':'hidden'}`}>Copied</div>
 					</div>
 					<div>
 						<div className='text-[1.2rem] font-bold font-serif'>
