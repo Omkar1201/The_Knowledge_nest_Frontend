@@ -44,7 +44,9 @@ function Navbar() {
     const handleclick = (event) => {
         event.preventDefault()
         setTempAllposts(
-            Allposts.filter((post) => (post.category.includes(category) || post.title.includes(category) || post.body.includes(category) || post.username.includes(category)))
+            Allposts.filter((post) => (
+                post.category.toLowerCase().includes(category.toLowerCase()) || post.title.toLowerCase().includes(category.toLowerCase()) || post.body.toLowerCase().includes(category.toLowerCase()) || post.username.toLowerCase().includes(category.toLowerCase())
+            ))
         )
         navigate('/Home')
         window.scrollTo({
