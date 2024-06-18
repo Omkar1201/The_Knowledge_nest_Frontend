@@ -184,11 +184,11 @@ function Navbar() {
                     {
                         isloggedin ? (
                             <Link to='/profile/myblogs'>
-                                <button>
-                                    <div className={`text-[2rem] hover:bg-gray-200 ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
-                                        <CgProfile />
+                                <button className=' flex flex-col items-center group'>
+                                    <div className={`text-[2rem] w-fit group-hover:bg-gray-200  ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
+                                        <CgProfile/>
                                     </div>
-                                    <div className='text-[0.7rem] font-thin'>
+                                    <div className={`text-[0.7rem]  ${location.pathname === '/profile/myblogs' ? 'font-semibold' : 'font-thin'}`}>
                                         {
                                             localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
                                         }

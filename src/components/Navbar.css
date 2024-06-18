@@ -1,4 +1,4 @@
-@media (min-width:905px) and (max-width: 1050px) {
+@media (min-width:954px) and (max-width: 1150px) {
     .last-container{
         gap: 1rem;
     }
@@ -6,7 +6,23 @@
         gap: 1.2rem;
     }
     .middle-container{
-        gap: 1.9rem;
+        gap: 1.7rem;
+    }
+}
+@media (min-width:905px) and (max-width: 954px) {
+    .last-container{
+        justify-content:space-around;
+        width: 100%;
+    }
+    .first-container{
+        margin: auto;
+        width: 100%;
+    }
+    .middle-container{
+        margin: auto;
+        width: 100%;
+        /* border: 2px solid black; */
+        justify-content: space-evenly;
     }
 }
 @media(max-width: 906px) {

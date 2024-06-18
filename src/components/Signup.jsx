@@ -6,13 +6,16 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Loading2 from './Loading2';
 export default function Signin() {
     const [eye, seteye] = useState(true)
     const [user, setuser] = useState({ username: "", email: "", password: "" })
+    const [btnloading, setbtnloading] = useState(false)
 
     const navigate = useNavigate();
     async function handlesubmit(event) {
         event.preventDefault();
+        setbtnloading(true)
         try {
             const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/signup`, {
                 method: "POST",
@@ -26,13 +29,25 @@ export default function Signin() {
                 navigate('/signin')
                 toast.success(response.message)
             }
-            else{
-                toast.warn(response.message)
+            else {
+                if (response.message==='connect ETIMEDOUT 13.127.238.52:27017' || response.message==='Operation `users.findOne()` buffering timed out after 10000ms') {
+
+					toast.warn('Check your internet connection')
+				}
+                else{
+
+                    toast.warn(response.message)
+                }
             }
         }
-        catch (err) {
-            console.log(`Failed to sign up ${err.message}`);
+        catch (error) {
+            if (error instanceof TypeError && error.message === 'Failed to fetch') {
+				toast.error("Check your internet connection.");
+			} else {
+				toast.error("An error occurred while sending the message.");
+			}
         }
+        setbtnloading(false)
     }
     function handleform(event) {
         setuser({
@@ -48,15 +63,15 @@ export default function Signin() {
                 <form onSubmit={handlesubmit} className=' flex flex-col items-center gap-5 rounded-lg' id='signupform'>
 
                     <div className='border flex items-center w-fit px-2 py-1 rounded-xl '>
-                        <input type='text' required onChange={handleform} name='username' placeholder='Username' className='  outline-none w-[14rem]' />
+                        <input type='text' required onChange={handleform} name='username' placeholder='Username' className='  outline-none w-[14rem]' disabled={btnloading}/>
                         <FaRegUser />
                     </div>
                     <div className='border flex items-center w-fit px-2 py-1 rounded-xl '>
-                        <input type='email' required onChange={handleform} name='email' placeholder='Email' className='  outline-none w-[14rem]' />
+                        <input type='email' required onChange={handleform} name='email' placeholder='Email' className='  outline-none w-[14rem]' disabled={btnloading}/>
                         < MdOutlineMail />
                     </div>
                     <div className=' border flex items-center w-fit  px-2 py-1 rounded-xl'>
-                        <input type={`${eye ? 'password' : 'text'}`} required onChange={handleform} name='password' placeholder='password' className=' outline-none w-[14rem]' />
+                        <input type={`${eye ? 'password' : 'text'}`} required onChange={handleform} name='password' placeholder='password' className=' outline-none w-[14rem]' disabled={btnloading}/>
                         <div onClick={() => seteye(!eye)} className=' cursor-pointer'>
                             {
                                 eye ? <AiOutlineEye /> : <AiOutlineEyeInvisible />
@@ -67,12 +82,20 @@ export default function Signin() {
                         <div className=''><label className='flex gap-1 appearance-none'><input type='checkbox' className='' />Remember me</label></div>
 
                     </div>
-                    <button className=' w-[16rem] border bg-blue-500 text-white hover:bg-blue-600 font-semibold transition-all duration-[0.4] rounded-2xl px-2 py-1'>
-                        Create Account
-                    </button>
-                        <div className='text-sm'>
-                            have a account? <Link to='/signin'><span className='font-semibold hover:underline hover:text-blue-600 cursor-pointer text-blue-500'>Log in</span></Link>
-                        </div>
+                    <div className='relative'>
+                        <button className={`${btnloading?'opacity-30':''} w-[16rem] border bg-blue-500 text-white hover:bg-blue-600 font-semibold transition-all duration-[0.4] rounded-2xl px-2 py-1`} disabled={btnloading}>
+                            Create Account
+                        </button>
+                        {
+							btnloading &&
+							<div className='absolute top-2 left-[47.5%]'>
+								<Loading2 />
+							</div>
+						}
+                    </div>
+                    <div className='text-sm'>
+                        have a account? <Link to='/signin'><span className='font-semibold hover:underline hover:text-blue-600 cursor-pointer text-blue-500'>Log in</span></Link>
+                    </div>
                 </form>
             </div>
         </div>

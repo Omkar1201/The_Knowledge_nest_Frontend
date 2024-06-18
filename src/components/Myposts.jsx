@@ -265,8 +265,13 @@ export default function Myposts({ data }) {
                 <div className={`text-start my-4 ${btnloading ? 'opacity-30' : ''}`}>
                     <div className='text-[1.3rem] font-semibold font-serif'>Summary</div>
                     <div className='font-semibold'>
-                        <div className=' cursor-pointer hover:text-blue-600 hover:underline' onClick={() => setisTotalLikesclicked(!isTotalLikesclicked)} title='Click tot see who liked your post'>
-                            Total likes: {data.likes.length}
+                        <div className='flex items-center cursor-pointer hover:underline' onClick={() => setisTotalLikesclicked(!isTotalLikesclicked)} title='Click to see who liked your post'>
+                            <div>
+                                Total likes: {data.likes.length}
+                            </div>
+                            <div className='text-[2rem] ' >
+                                {isTotalLikesclicked ? <RiArrowDropUpLine /> : <RiArrowDropDownLine />}
+                            </div>
                         </div>
                         <div className={` font-normal transition-max-height duration-300 ease-in-out ${isTotalLikesclicked ? 'max-h-[1000px]' : 'max-h-0'} overflow-hidden`}>
                             {
@@ -283,13 +288,13 @@ export default function Myposts({ data }) {
                         </div>
                     </div>
                     <div className='font-semibold'>
-                        Your post is saved by: {data.savedby.length}
+                        Your post is saved by: {data.savedby.length} users
                     </div>
-                    <div onClick={() => setiscommentclicked(!iscommentclicked)} className='font-semibold cursor-pointer flex items-center'  >
+                    <div onClick={() => setiscommentclicked(!iscommentclicked)} className='font-semibold cursor-pointer hover:underline flex items-center' title='Click to see comments' >
                         <div>
                             Total Comments: {data.comments.length}
                         </div>
-                        <div className='text-[2rem] ' title='Click to see comments'>
+                        <div className='text-[2rem] ' >
                             {iscommentclicked ? <RiArrowDropUpLine /> : <RiArrowDropDownLine />}
                         </div>
                     </div>

@@ -13,7 +13,7 @@ export default function AppContextProvider({ children }) {
 	const [category, setcategory] = useState('')
 	const [selectedarticle, setselectedarticle] = useState()
 	const [recentpost, setrecentpost] = useState([])
-	const [writtenby,setwrittenby]=useState({id:null,name:null})
+	const [writtenby, setwrittenby] = useState({ id: null, name: null })
 	useEffect(() => {
 		const data = Allposts.slice(-3).reverse()
 		setrecentpost(data)
@@ -76,12 +76,13 @@ export default function AppContextProvider({ children }) {
 				setAllposts(response.Allpost)
 			}
 			else {
-				if (response.message==='connect ETIMEDOUT 13.127.238.52:27017' || response.message==='Operation `posts.find()` buffering timed out after 10000ms') {
+				if (response.message === 'connect ETIMEDOUT 13.127.238.52:27017' || response.message === 'Operation `posts.find()` buffering timed out after 10000ms') {
 
-					toast.warn('Check your internet connection')
-					return
+					toast.warn('Check your internet connection0')
 				}
-				toast.warn(response.message)
+				else {
+					toast.warn(response.message)
+				}
 			}
 		}
 		catch (error) {
@@ -96,13 +97,13 @@ export default function AppContextProvider({ children }) {
 
 	useEffect(() => {
 		const authenticate0 = async () => {
-			const token=localStorage.getItem('token')
+			const token = localStorage.getItem('token')
 			setisloading(true)
 			if (!token || token === 'null') {
 				console.log({ success: false, message: 'Token not found' })
 				setisloggedin(false)
 			}
-	
+
 			else {
 				setisloading(true)
 				const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/`, {
@@ -124,7 +125,7 @@ export default function AppContextProvider({ children }) {
 		const getposts0 = async () => {
 			setisloading(true)
 			try {
-	
+
 				const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/home`, {
 					method: "GET",
 					headers: {
@@ -132,14 +133,14 @@ export default function AppContextProvider({ children }) {
 					},
 				})
 				let response = await data.json();
-	
+
 				if (response.success) {
 					setTempAllposts(response.Allpost)
 					setAllposts(response.Allpost)
 				}
 				else {
-					if (response.message==='connect ETIMEDOUT 13.127.238.52:27017' || response.message==='Operation `posts.find()` buffering timed out after 10000ms') {
-	
+					if (response.message === 'connect ETIMEDOUT 13.127.238.52:27017' || response.message === 'Operation `posts.find()` buffering timed out after 10000ms') {
+
 						toast.warn('Check your internet connection')
 						return
 					}
@@ -163,11 +164,11 @@ export default function AppContextProvider({ children }) {
 			setisloggedin(false);
 			getposts();
 		}
-	
+
 		authenticate0()
 		getposts0()
-	},[])
-	
+	}, [])
+
 	function logout() {
 		localStorage.removeItem('token');
 		localStorage.removeItem('email');
@@ -184,14 +185,14 @@ export default function AppContextProvider({ children }) {
 		Allposts, setAllposts,
 		getposts,
 		logout,
-		clicked, setclicked, 
+		clicked, setclicked,
 		isloading, setisloading,
 		category, setcategory,
 		selectedarticle, setselectedarticle,
-		TempAllposts, setTempAllposts, 
+		TempAllposts, setTempAllposts,
 		replacepost,
 		recentpost,
-		writtenby,setwrittenby
+		writtenby, setwrittenby
 	}
 	return (
 		<AppContext.Provider value={contextValue}>

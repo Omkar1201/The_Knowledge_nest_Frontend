@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaPhoneAlt, FaRegUser} from "react-icons/fa";
+import { FaPhoneAlt, FaRegUser } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaGithub, FaInstagram } from "react-icons/fa6";
 import { AiOutlineLinkedin } from "react-icons/ai";
@@ -7,10 +7,11 @@ import { SiLeetcode } from "react-icons/si";
 import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
 import Loading2 from './Loading2';
+import { MdContentCopy } from "react-icons/md";
 import './Contact.css'
 export default function Contact() {
 	const [btnloading, setbtnloading] = useState(false)
-	const [showmessage,setshowmessage]=useState(false);
+	const [showmessage, setshowmessage] = useState(false);
 	const form = useRef();
 	const sendEmail = async (e) => {
 		e.preventDefault();
@@ -31,22 +32,21 @@ export default function Contact() {
 		setbtnloading(false);
 
 	}
-	const phoneNumber='9975359761'
+	const phoneNumber = '9975359761'
 	const handleIconClick = () => {
 		navigator.clipboard.writeText(phoneNumber)
-		  .then(() => {
-			// toast.success('Phone number copied to clipboard')
-			setshowmessage(true)
-			setTimeout(()=>{
-				setshowmessage(false)
-			},2000)
-		  })
-		  .catch(err => {
-			toast.error('Failed to copy phone number: ');
-		  });
-	  };
+			.then(() => {
+				setshowmessage(true)
+				setTimeout(() => {
+					setshowmessage(false)
+				}, 2000)
+			})
+			.catch(err => {
+				toast.error('Failed to copy phone number: ');
+			});
+	};
 	return (
-		<div className=' bg-black py-4 flex-wrap items-center justify-center'>
+		<div className=' bg-black py-4 flex-wrap min-h-screen items-center justify-center'>
 			<div className='text-center text-[2rem] font-serif text-white'>Get in touch</div>
 			<div className='flex flex-wrap twodivs justify-center'>
 				<form className={`bg-gray-100 left-10 w-[32rem] p-4 border-black `} ref={form} onSubmit={sendEmail} id='contactform'>
@@ -103,11 +103,9 @@ export default function Contact() {
 							</div>
 						</span>
 					</div>
-					<div className='flex gap-5 items-start my-4'>
-						<span className='bg-black hover:bg-slate-700 p-2 text-white border rounded-full'>
-							<a href={`mailto:omkarsalunkhe3597@gmail.com`} title='Click to send email'>
-								<MdOutlineMailOutline />
-							</a>
+					<a className='flex gap-5 group items-start my-4' href={`mailto:omkarsalunkhe3597@gmail.com`} title='Click to send email'>
+						<span className='bg-black group-hover:bg-gray-700 p-2 text-white border rounded-full'>
+							<MdOutlineMailOutline />
 						</span>
 						<span className=' flex flex-col items-start'>
 							<div className=' font-semibold'>
@@ -117,9 +115,9 @@ export default function Contact() {
 								omkarsalunkhe3597@gmail.com
 							</div>
 						</span>
-					</div>
-					<div className='flex relative gap-5 items-start my-4 cursor-pointer' title='Click to copy mobile no.' onClick={handleIconClick}>
-						<span className='bg-black p-2 text-white border rounded-full'>
+					</a>
+					<div className='flex relative gap-5 group items-start my-4 cursor-pointer' title='Click to copy mobile no.' onClick={handleIconClick}>
+						<span className='bg-black p-2 text-white group-hover:bg-gray-700 border rounded-full'>
 							<FaPhoneAlt />
 						</span>
 						<span className=' flex flex-col'>
@@ -130,7 +128,7 @@ export default function Contact() {
 								9975359761
 							</div>
 						</span>
-						<div className={`bg-black shadow-2xl text-white px-2 absolute py-1 top-[0.6rem] rounded-md left-[10rem] ${showmessage?'block':'hidden'}`}>Copied</div>
+						<div className={`bg-black shadow-2xl text-white px-2 absolute py-1 top-[0.6rem] rounded-md left-[10rem] items-center gap-1 ${showmessage ? 'flex' : 'hidden'}`}><MdContentCopy/>Copied!</div>
 					</div>
 					<div>
 						<div className='text-[1.2rem] font-bold font-serif'>

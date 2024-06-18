@@ -4,7 +4,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 export default function PleaseLogin() {
 	return (
 		<div className='flex justify-center items-center bg-gray-100 min-h-[80vh]' title='Cilck to login'>
-			<div className='border-2 justify-evenly w-[20rem] h-[10rem] flex items-center flex-col shadow-xl'>
+			<div className='border justify-evenly w-[20rem] h-[10rem] flex items-center flex-col shadow-xl'>
 				<div className='text-[2.5rem] text-red-500'>
 					<RiErrorWarningLine />
 				</div>
