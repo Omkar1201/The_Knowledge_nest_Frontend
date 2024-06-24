@@ -6,7 +6,7 @@ import { AppContext } from '../context/Appcontext';
 export default function Footer() {
     const { recentpost } = useContext(AppContext)
     return (
-        <footer className="bg-black text-white py-10 ">
+        <footer className="bg-black text-white py-10 text-center">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap justify-between">
 
@@ -36,7 +36,7 @@ export default function Footer() {
                     <div className="w-full md:w-1/3">
                         <h2 className="text-xl font-bold mb-4">Contact</h2>
                         <p className="text-gray-400 flex justify-center flex-wrap mb-2">Email: <a href="mailto:omkarsalunkhe3597@gmail.com" className="text-gray-400 hover:text-white hover:underline">omkarsalunkhe3597@gmail.com</a></p>
-                        <p className="text-gray-400 mb-2">Phone: <a href="tel:+919975359761" className="text-gray-400 hover:text-white">+91 9975359761</a></p>
+                        <p className="text-gray-400 flex justify-center flex-wrap mb-2">Phone: <a href="tel:+919975359761" className="text-gray-400 hover:text-white">+91 9975359761</a></p>
                         <div className="flex space-x-4 flex-wrap gap-2 mt-4 justify-center">
                             <a href='https://leetcode.com/omkarsalunkhe3597/' target='_blank' rel="noreferrer" className="text-gray-400 hover:text-white">
                                 <SiLeetcode size={24} />

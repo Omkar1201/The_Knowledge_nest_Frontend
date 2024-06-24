@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 export const AppContext = createContext(false);
@@ -14,6 +15,10 @@ export default function AppContextProvider({ children }) {
 	const [selectedarticle, setselectedarticle] = useState()
 	const [recentpost, setrecentpost] = useState([])
 	const [writtenby, setwrittenby] = useState({ id: null, name: null })
+    const [isAccountdeleting, setisAccountdeleting] = useState(false)
+
+	const navigate=useNavigate()
+
 	useEffect(() => {
 		const data = Allposts.slice(-3).reverse()
 		setrecentpost(data)
@@ -174,6 +179,7 @@ export default function AppContextProvider({ children }) {
 		localStorage.removeItem('email');
 		localStorage.removeItem('username');
 		localStorage.removeItem('user_id');
+		navigate('/Home')
 		setisloggedin(false);
 		getposts();
 	}
@@ -192,7 +198,8 @@ export default function AppContextProvider({ children }) {
 		TempAllposts, setTempAllposts,
 		replacepost,
 		recentpost,
-		writtenby, setwrittenby
+		writtenby, setwrittenby,
+		isAccountdeleting, setisAccountdeleting
 	}
 	return (
 		<AppContext.Provider value={contextValue}>

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../context/Appcontext'
 import Card from './Card'
-import Loading from './Loading'
 import Top from './Top'
+import LoadingSkeleton from './LoadingSkeleton'
 
 export default function Home() {
-	const { isloading, TempAllposts } = useContext(AppContext)
+	const { isloading, TempAllposts,isAccountdeleting} = useContext(AppContext)
 	// const gettest = async () => {
 	// 	try {
 	// 		const token = localStorage.getItem('token')
@@ -55,7 +55,7 @@ export default function Home() {
 		<div className='mt-2'>
 
 			{
-				isloading ? <Loading /> : (
+				isloading || isAccountdeleting ? <LoadingSkeleton/> : (
 					<>
 						{/* <CategoryBar/> */}
 						

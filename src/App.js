@@ -16,6 +16,8 @@ import Savedposts from './components/Savedposts';
 import Footer from './components/Footer';
 import Otherposts from './components/Otherposts';
 import Demo from './components/Demo';
+import TopSkeleton from './components/TopSkeleton';
+import CardSkeleton from './components/CardSkeleton';
 function App() {
   const location = useLocation()
   return (
@@ -35,6 +37,8 @@ function App() {
         <Route path='/savedposts' element={<Savedposts />}></Route>
         <Route path='/otherposts' element={<Otherposts/>}></Route>
         <Route path='/demo' element={<Demo/>}></Route>
+        <Route path='/demodemo' element={<TopSkeleton/>}></Route>
+        <Route path='/cardskeleton' element={<CardSkeleton/>}></Route>
         <Route path='/*' element={<Pagenotfound />}></Route>
       </Routes>
 

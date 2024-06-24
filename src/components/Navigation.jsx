@@ -6,7 +6,7 @@ export default function Navigation() {
     const { isloggedin } = useContext(AppContext)
     return (
         <div className='navi h-screen gap-10 flex flex-col justify-center'>
-            <div className='text-[3rem] font-semibold'>Join the Conversation in Engineering</div>
+            <div className='text-[3rem] font-semibold text-center'>Join the Conversation in Engineering</div>
             <div className='flex justify-evenly '>
                 <div>
                     <Link to='/Home'>

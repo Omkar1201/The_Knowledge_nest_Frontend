@@ -4,8 +4,8 @@ import PleaseLogin from './PleaseLogin';
 import Modal from 'react-modal';
 import { IoWarningOutline } from "react-icons/io5";
 import Myposts from './Myposts';
-import Loading from './Loading';
 import { Link } from 'react-router-dom';
+import MypostsSkeleton from './MypostsSkeleton';
 
 export default function Profile() {
     const { isloggedin, logout, Allposts, isloading } = useContext(AppContext);
@@ -18,15 +18,14 @@ export default function Profile() {
     }, [Allposts])
     return (
         <div className=''>
-
             {isloggedin ? (
-                <div>
+                <div className='text-center'>
                     {/* <div>Welcome {localStorage.getItem('username')}</div> */}
                     <div className='text-start text-[1.5rem] font-serif font-bold my-4'>
                         MyBlogs
                     </div>
                     {
-                        isloading ? (<Loading />) :
+                        isloading ? (<MypostsSkeleton />) :
                             <>
 
                                 <div className=' min-h-screen flex flex-wrap justify-center gap-4'>
@@ -49,7 +48,6 @@ export default function Profile() {
                                 </div>
                             </>
                     }
-
                     <Modal
                         isOpen={signoutModalIsOpen}
                         onRequestClose={() => setSignoutModalIsOpen(false)}
