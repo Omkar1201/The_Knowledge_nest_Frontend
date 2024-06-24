@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/Appcontext';
 import Card from './Card';
-import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import { IoWarningOutline } from "react-icons/io5";
 export default function SavedPosts() {
