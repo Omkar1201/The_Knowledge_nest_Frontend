@@ -126,7 +126,6 @@ export default function AppContextProvider({ children }) {
 				}
 			}
 			setisloading(false)
-			setisloading(false);
 		}
 		const getposts0 = async () => {
 			setisloading(true)
