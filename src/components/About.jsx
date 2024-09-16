@@ -52,9 +52,11 @@ export default function About() {
 						</div>
 						{
 							!isloggedin &&
-							<button className='border px-4 w-[10rem] py-1 bg-black text-white font-semibold'>
-								Register
-							</button>
+							<Link to='/Signup'>
+								<button className='border px-4 w-[10rem] py-1 bg-black text-white font-semibold'>
+									Register
+								</button>
+							</Link>
 						}
 					</div>
 				</div>

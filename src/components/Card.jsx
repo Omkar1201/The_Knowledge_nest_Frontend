@@ -138,7 +138,7 @@ export default function Card({ data, flag }) {
                 }
                 replacepost(responseData.updatedPostData)
                 setcomment(responseData.updatedPostData.comments)
-                
+
                 toast.success('Comment deleted')
                 // console.log(responseData.updatedPostData);
             }
@@ -235,12 +235,20 @@ export default function Card({ data, flag }) {
                         {isLiked ? <BiSolidLike /> : <BiLike />}
                         <div>{likeCount}</div>
                     </button>
-                    <button className={`font-semibold text-[0.9rem] ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} onClick={() => { setwrittenby({ id: data.creater_id, name: data.username }); navigate('/otherposts') }} disabled={location.pathname === '/otherposts'}>Written by: {data.username}</button>
+                    <button className={`font-semibold text-[0.9rem] ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} onClick={() => { setwrittenby({ id: data.creater_id, name: data.username }); navigate('/otherposts') }} disabled={location.pathname === '/otherposts'} title={`Click to see other posts of ${data.username}`}>Written by: {data.username}</button>
                 </div>
                 {
                     flag === 'only' &&
-                    < div className='flex flex-wrap py-2'>
+                    < div className='flex justify-between flex-wrap py-2'>
                         <button onClick={() => { setselectedarticle(data); navigate('/readblog') }} className={`border active:bg-slate-700 px-4  border-black font-semibold bg-black text-white py-1 ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} title='Click to read entire blog' disabled={isSaving}>Read More</button>
+                        {/* <div className='relative'>
+                            <div className='text-[1.5rem]'>
+                                <IoChatboxEllipsesOutline />
+                            </div>
+                            <div className='absolute text-[0.8rem] top-[-0.6rem] right-0 animate-pulse'>
+                                5
+                            </div>
+                        </div> */}
                     </div>
                 }
                 <div>
@@ -254,7 +262,7 @@ export default function Card({ data, flag }) {
                             <input onChange={(event) => setmycomment(event.target.value)} autoComplete='off' value={mycomment || ''} className={`border-b w-full focus:border-black outline-none ${isCommentLoading || iscommentdeleting || isSaving ? 'cursor-wait' : ''}`} name='comment' placeholder='Add a Comment...' type='text' disabled={isCommentLoading || iscommentdeleting || isSaving} />
                         </div>
                         <div className={`justify-end flex-wrap gap-4 ${isfocused ? 'flex ' : 'hidden'}`}>
-                            <div className='hover:bg-gray-200 px-3 rounded-lg font-semibold py-1 cursor-pointer' onClick={() => { setmycomment("");setisfocused(false) }} >cancel</div>
+                            <div className='hover:bg-gray-200 px-3 rounded-lg font-semibold py-1 cursor-pointer' onClick={() => { setmycomment(""); setisfocused(false) }} >cancel</div>
                             {/* <button className={`${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'}  border px-3 rounded-xl font-semibold py-1`} disabled={!mycomment}>Comment</button> */}
                             <div className='relative'>
                                 <button className={`border ${isCommentLoading ? 'opacity-30' : ''} ${mycomment ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'} border px-3 rounded-lg font-semibold py-1`} disabled={!mycomment || isCommentLoading}>

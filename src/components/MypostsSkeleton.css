@@ -1,0 +1,11 @@
+@media (max-width: 530px) { 
+    .deleteicon{
+        display: block;
+    }
+    .hidedelteicon{
+        display: none;
+    }
+    .imgw{
+        width: 40rem;
+    }
+}

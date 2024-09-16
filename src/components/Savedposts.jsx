@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/Appcontext';
 import Card from './Card';
-import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import { IoWarningOutline } from "react-icons/io5";
 export default function SavedPosts() {
@@ -27,7 +26,16 @@ export default function SavedPosts() {
                 Saved posts
             </div>
             {
-                isloading ? (<Loading />) : (
+                isloading ? (
+                    // <Loading />
+                    <div className='flex flex-col gap-6'>
+                        <div className={`bg-gray-200 w-[90%] h-[2rem] animate-pulse`}></div>
+                        <div className={`bg-gray-200 w-[70%] h-[2rem] animate-pulse`}></div>
+                        <div className={`bg-gray-200 w-[80%] h-[2rem] animate-pulse`}></div>
+                        <div className={`bg-gray-200 w-[55%] h-[2rem] animate-pulse`}></div>
+                        <div className={`bg-gray-200 w-[85%] h-[2rem] animate-pulse`}></div>
+                    </div>
+                ) : (
                     savedPosts.length > 0 ? (
                         savedPosts.map((data, index) => (
                             <div className='text-start flex flex-col gap-6' key={index}>
@@ -42,12 +50,6 @@ export default function SavedPosts() {
 
                     ) : (
                         <div className=' flex flex-col py-2 items-center justify-center'>
-                            <div>
-                            </div>
-                            <Link to='/Home'>
-                                <div className=''>
-                                </div>
-                            </Link>
                             <div className='justify-evenly w-[20rem] h-[10rem] flex items-center flex-col'>
                                 <div className='text-[2.5rem] text-yellow-500'>
                                     <IoWarningOutline />
@@ -55,7 +57,7 @@ export default function SavedPosts() {
                                 <div className='font-bold text-[1.2rem]'>
                                     You don't have any post saved.
                                 </div>
-                                <Link to='/Signin'>
+                                <Link to='/Home'>
                                     <div className='hover:underline'>
                                         Click to explore blogs
                                     </div>

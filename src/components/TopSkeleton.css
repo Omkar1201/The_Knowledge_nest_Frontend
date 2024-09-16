@@ -1,0 +1,7 @@
+
+@media(max-width: 906px) {
+    .applyflexwrap{
+        flex-wrap: wrap;
+    }
+    
+}

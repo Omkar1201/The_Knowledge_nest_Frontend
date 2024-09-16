@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../context/Appcontext'
 import { CgProfile } from "react-icons/cg";
@@ -13,19 +13,21 @@ import { GoSignOut } from "react-icons/go";
 import { TiUserDelete } from "react-icons/ti";
 import { PiUserThin } from "react-icons/pi";
 import { IoWarningOutline } from "react-icons/io5";
-
+import { AiOutlineUserDelete } from 'react-icons/ai';
 import './Navbar.css'
 import Sidebar from './Sidebar';
-const customStyles = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-    },
-};
+// const customStyles = {
+//     overlay: {
+//         backgroundColor: 'rgba(0, 0, 0, 0)',
+//     },
+// };
 function Navbar() {
     const cur = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-    const { logout, setTempAllposts, isloggedin, category, setcategory, Allposts } = useContext(AppContext)
+    const { logout, setTempAllposts, isloggedin, category, setcategory, Allposts, setisAccountdeleting } = useContext(AppContext)
     const [profileModal, setprofileModal] = useState(false)
     const [signoutModalIsOpen, setSignoutModalIsOpen] = useState(false);
+    const [deletAccount, setdeleteAccount] = useState(false)
+    const profile = useRef(null)
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -81,11 +83,56 @@ function Navbar() {
             toast.error(error.message)
         }
     }
+    const deleteMyAccount = async () => {
+        const token = localStorage.getItem('token');
+        if (!token || token === 'null') {
+            toast.warn('Please log in');
+            return;
+        }
+        setisAccountdeleting(true);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/deleteaccount`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+
+            const responseData = await response.json();
+            if (responseData.success) {
+                toast.success(responseData.message)
+                logout()
+            }
+            else {
+                toast.warn(responseData.message)
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+            toast.warn('An error accoured during deletion of account')
+        }
+        setisAccountdeleting(false)
+    }
+    const handleClickOutside = (event) => {
+        if (profile.current && !profile.current.contains(event.target)) {
+            setprofileModal(false)
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+        // eslint-disable-next-line
+    }, []);
+
     return (
         <div className=''>
             <div className='flex sidebar-container justify-center items-center gap-4 relative'>
                 <div className='hidden sidebar'>
-                    <Sidebar createpost={createpost} />
+                    <Sidebar createpost={createpost} deleteMyAccount={deleteMyAccount}/>
                 </div>
 
                 <div className='text-[2rem] items-center gap-4 fontsize flex text-center font-bold'>
@@ -185,18 +232,44 @@ function Navbar() {
 
                     {
                         isloggedin ? (
-                            <Link to='/profile/myblogs'>
-                                <button className=' flex flex-col items-center group'>
-                                    <div className={`text-[2rem] w-fit group-hover:bg-gray-200  ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
-                                        <CgProfile/>
-                                    </div>
-                                    <div className={`text-[0.7rem]  ${location.pathname === '/profile/myblogs' ? 'font-semibold' : 'font-thin'}`}>
-                                        {
-                                            localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
-                                        }
-                                    </div>
-                                </button>
-                            </Link>
+                            <div ref={profile} className=' flex flex-col items-center group cursor-pointer' onClick={() => setprofileModal(!profileModal)}>
+                                <div className={`text-[2rem] w-fit group-hover:bg-gray-200  ${location.pathname === '/profile/myblogs' ? ' text-blue-500' : ''}`} title='Profile'>
+                                    <CgProfile />
+                                </div>
+                                <div className={`text-[0.7rem]  ${location.pathname === '/profile/myblogs' ? 'font-semibold' : 'font-thin'}`}>
+                                    {
+                                        localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)
+                                    }
+                                </div>
+                                <div className={` z-10 custom-profile-modal ${profileModal ? 'flex' : 'hidden'} absolute top-[7.15rem] right-0 flex-col gap-5 items-start`} >
+                                    <Link to='/profile/myblogs' className='w-full' onClick={() => setprofileModal(false)}>
+                                        <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 ${location.pathname === '/profile/myblogs' ? 'bg-gray-100 hover:bg-gray-200' : ''} rounded-md`}>
+                                            <div>
+                                                <PiUserThin />
+                                            </div>
+                                            <div>
+                                                Myblogs
+                                            </div>
+                                        </button>
+                                    </Link>
+                                    <button onClick={() => setSignoutModalIsOpen(true)} className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                                        <div>
+                                            <GoSignOut />
+                                        </div>
+                                        <div>
+                                            Sign Out
+                                        </div>
+                                    </button>
+                                    <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-red-500 rounded-md hover:text-white`} onClick={() => setdeleteAccount(true)}>
+                                        <div className='text-[1.2rem]'>
+                                            <TiUserDelete />
+                                        </div>
+                                        <div>
+                                            Delete Account
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
                         ) :
                             (
 
@@ -207,44 +280,43 @@ function Navbar() {
                                 </Link>
                             )
                     }
-                    {/* <div onClick={()=>setprofileModal(!profileModal)}>Click</div> */}
-                     {/* Profile Modal */}
-                    <Modal
+                    {/* Profile Modal */}
+                    {/* <Modal
                         isOpen={profileModal}
                         onRequestClose={() => setprofileModal(false)}
                         contentLabel="Profile_Modal"
                         className="custom-profile-modal"
                         style={customStyles}
-                    >
-                        <div className={`flex flex-col gap-5 items-start`}>
-                            <Link to='/profile/myblogs' className='w-full' onClick={()=>setprofileModal(false)}>
-                                <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 ${location.pathname==='/profile/myblogs' ? 'bg-gray-100 hover:bg-gray-200':''} rounded-md`}>
-                                    <div>
-                                        <PiUserThin />
-                                    </div>
-                                    <div>
-                                        Myblogs
-                                    </div>
-                                </button>
-                            </Link>
-                            <button onClick={() => setSignoutModalIsOpen(true)} className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                    > */}
+                    {/* <div className={`custom-profile-modal ${profileModal ? 'flex' : 'hidden'} absolute top-[7.15rem] right-0 flex-col gap-5 items-start`} >
+                        <Link to='/profile/myblogs' className='w-full' onClick={() => setprofileModal(false)}>
+                            <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 ${location.pathname === '/profile/myblogs' ? 'bg-gray-100 hover:bg-gray-200' : ''} rounded-md`}>
                                 <div>
-                                    <GoSignOut />
+                                    <PiUserThin />
                                 </div>
                                 <div>
-                                    Sign Out
+                                    Myblogs
                                 </div>
                             </button>
-                            <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-red-500 rounded-md hover:text-white`}>
-                                <div className='text-[1.2rem]'>
-                                    <TiUserDelete />
-                                </div>
-                                <div>
-                                    Delete Account
-                                </div>
-                            </button>
-                        </div>
-                    </Modal>
+                        </Link>
+                        <button onClick={() => setSignoutModalIsOpen(true)} className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-gray-100 rounded-md`}>
+                            <div>
+                                <GoSignOut />
+                            </div>
+                            <div>
+                                Sign Out
+                            </div>
+                        </button>
+                        <button className={`flex items-center gap-4 px-1 w-full py-1 hover:bg-red-500 rounded-md hover:text-white`}>
+                            <div className='text-[1.2rem]'>
+                                <TiUserDelete />
+                            </div>
+                            <div>
+                                Delete Account
+                            </div>
+                        </button>
+                    </div> */}
+                    {/* </Modal> */}
 
                     {/* Sign out Modal */}
                     <Modal
@@ -261,6 +333,23 @@ function Navbar() {
                                 setprofileModal(false)
                             }} className='border px-3 rounded-md border-gray-300 font-semibold py-1 hover:bg-gray-100'>Sign Out</button>
                             <button onClick={() => setSignoutModalIsOpen(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
+                        </div>
+                    </Modal>
+
+                    {/* Delte account modal */}
+                    <Modal
+                        isOpen={deletAccount}
+                        onRequestClose={() => setdeleteAccount(false)}
+                        contentLabel="delte account Confirmation"
+                        className='custom-modal'
+                    >
+                        <h2 className=' text-[1.2rem] font-semibold flex items-center gap-4'><span className='text-[1.7rem] text-red-600 flex justify-center items-center rounded-full p-1 bg-red-200'><AiOutlineUserDelete /></span>Are you sure you want to Delete Account?</h2>
+                        <div className='flex gap-4'>
+                            <button onClick={() => {
+                                deleteMyAccount()
+                                setdeleteAccount(false);
+                            }} className='border px-3 bg-red-500 text-white rounded-md border-gray-300 font-semibold py-1 hover:bg-red-600'>Delete Account</button>
+                            <button onClick={() => setdeleteAccount(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
                         </div>
                     </Modal>
                 </div>

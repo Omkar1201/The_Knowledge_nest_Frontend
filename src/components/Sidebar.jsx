@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AppContext } from '../context/Appcontext';
 import { Link, useLocation } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
@@ -8,13 +8,18 @@ import { GoSignOut } from "react-icons/go";
 import { IoMdCreate } from "react-icons/io";
 import { GoHome } from "react-icons/go";
 import { CiLogin } from "react-icons/ci";
+import { TiUserDelete } from 'react-icons/ti';
+import { AiOutlineUserDelete } from 'react-icons/ai';
 import './Sidebar.css'
-export default function Sidebar({ createpost }) {
+export default function Sidebar({ createpost ,deleteMyAccount}) {
     const { isloggedin, logout } = useContext(AppContext)
     const [isSidebarClicked, setIsSidebarClicked] = useState(false);
     const [expanded, setExpanded] = useState(false);
-    const location = useLocation()
     const [signoutModalIsOpen, setSignoutModalIsOpen] = useState(false);
+    const [deletAccount, setdeleteAccount] = useState(false)
+    const location = useLocation()
+    const sidebarRef = useRef(null);
+
     const handleSidebarClick = () => {
         setIsSidebarClicked(!isSidebarClicked);
         setExpanded(!expanded);
@@ -28,8 +33,23 @@ export default function Sidebar({ createpost }) {
         }
     }, [expanded]);
 
+    const handleClickOutside = (event) => {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+            setIsSidebarClicked(false);
+            setExpanded(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+        // eslint-disable-next-line
+    }, []);
+
     return (
-        <div>
+        <div ref={sidebarRef}>
             <div className={`animated-div z-10 ${expanded ? 'expanded' : ''} top-[5rem] left-0 absolute h-screen border bg-white overflow-auto`}>
                 <div className="py-4 px-3">
                     {
@@ -44,7 +64,7 @@ export default function Sidebar({ createpost }) {
                     }
                     <div className=' my-8 flex flex-col gap-4 font-semibold text-start'>
                         <Link to='/Home' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/Home' ? 'bg-zinc-100' : ''}`}>
+                            <div className={`flex items-center gap-4 px-4 py-1 rounded-md  ${location.pathname === '/Home' ? 'bg-zinc-100' : ''}`}>
                                 <div className='text-[1.2rem]'>
                                     <GoHome />
                                 </div>
@@ -54,7 +74,7 @@ export default function Sidebar({ createpost }) {
                             </div>
                         </Link>
                         <Link to='/createpost' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/createpost' ? 'bg-zinc-100' : ''}`} onClick={() => createpost()}>
+                            <div className={`flex items-center gap-4 px-4 py-1 rounded-md ${location.pathname === '/createpost' ? 'bg-zinc-100' : ''}`} onClick={() => createpost()}>
                                 <div className='text-[1.2rem]'>
                                     <IoMdCreate />
                                 </div>
@@ -64,7 +84,7 @@ export default function Sidebar({ createpost }) {
                             </div>
                         </Link>
                         <Link to='/profile/myblogs' onClick={handleSidebarClick}>
-                            <div className={`flex items-center gap-4 px-4 py-1  ${location.pathname === '/profile/myblogs' ? 'bg-zinc-100' : ''}`}>
+                            <div className={`flex items-center gap-4 px-4 py-1 rounded-md ${location.pathname === '/profile/myblogs' ? 'bg-zinc-100' : ''}`}>
                                 <div className='text-[1.2rem]'>
                                     <CgProfile />
                                 </div>
@@ -83,14 +103,24 @@ export default function Sidebar({ createpost }) {
 
                         {
                             isloggedin ? (
-                                <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className={` w-full flex items-center gap-4 px-4 py-1 ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
-                                    <div className='text-[1.2rem]'>
-                                        <GoSignOut />
-                                    </div>
-                                    <div>
-                                        Sign Out
-                                    </div>
-                                </button>
+                                <>
+                                    <button onClick={() => { setSignoutModalIsOpen(true); handleSidebarClick() }} className={` w-full flex items-center gap-4 px-4 py-1 rounded-md ${location.pathname === '/Signin' ? 'bg-zinc-100' : ''}`}>
+                                        <div className='text-[1.2rem]'>
+                                            <GoSignOut />
+                                        </div>
+                                        <div>
+                                            Sign Out
+                                        </div>
+                                    </button>
+                                    <button className={`w-full flex items-center gap-4 px-4 py-1 rounded-md text-white active:bg-red-600 bg-red-500`} onClick={()=>{setdeleteAccount(true);  handleSidebarClick() }}>
+                                        <div className='text-[1.2rem]'>
+                                            <TiUserDelete />
+                                        </div>
+                                        <div>
+                                            Delete Account
+                                        </div>
+                                    </button>
+                                </>
                             ) :
                                 (
                                     <Link to='/Signin' onClick={handleSidebarClick}>
@@ -121,6 +151,22 @@ export default function Sidebar({ createpost }) {
                             </div>
                         </Modal>
 
+                    {/* Delete account modal */}
+                        <Modal
+                            isOpen={deletAccount}
+                            onRequestClose={() => setdeleteAccount(false)}
+                            contentLabel="delte account Confirmation"
+                            className='custom-modal'
+                        >
+                            <h2 className=' text-[1.2rem] font-semibold flex items-center gap-4'><span className='text-[1.7rem] text-red-600 flex justify-center items-center rounded-full p-1 bg-red-200'><AiOutlineUserDelete /></span>Are you sure you want to Delete Account?</h2>
+                            <div className='flex gap-4'>
+                                <button onClick={() => {
+                                    deleteMyAccount()
+                                    setdeleteAccount(false);
+                                }} className='border px-3 bg-red-500 text-white rounded-md border-gray-300 font-semibold py-1 hover:bg-red-600'>Delete Account</button>
+                                <button onClick={() => setdeleteAccount(false)} className='border px-3 rounded-md hover:bg-gray-100 border-gray-300 font-semibold py-1'>Cancel</button>
+                            </div>
+                        </Modal>
                     </div>
 
                 </div>
