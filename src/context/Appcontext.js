@@ -110,7 +110,6 @@ export default function AppContextProvider({ children }) {
 			}
 
 			else {
-				setisloading(true)
 				const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/`, {
 					method: "GET",
 					headers: {
@@ -126,6 +125,7 @@ export default function AppContextProvider({ children }) {
 					logout0()
 				}
 			}
+			setisloading(false)
 		}
 		const getposts0 = async () => {
 			setisloading(true)
